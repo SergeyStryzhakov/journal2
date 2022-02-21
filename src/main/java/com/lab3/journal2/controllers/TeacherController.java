@@ -31,10 +31,8 @@ public class TeacherController {
     @GetMapping(value = "/teachers/new")
     public String createTeacherForm(Model model) {
         Teacher teacher = new Teacher();
-        Subject subject = new Subject();
         model.addAttribute("teacher", teacher);
         model.addAttribute("subjects", subjectService.getAllSubjects());
-        model.addAttribute("subject", subject);
         return "create_teacher";
     }
 
@@ -44,7 +42,7 @@ public class TeacherController {
         return "redirect:/teachers";
     }
 
-    @GetMapping(value = "/teachers/{id}")
+    @GetMapping(value = "/teachers/remove/{id}")
     public String removeTeacher(@PathVariable int id) {
         teacherService.removeTeacher(id);
         return "redirect:/teachers";
@@ -53,6 +51,7 @@ public class TeacherController {
     @GetMapping(value = "teachers/edit/{id}")
     public String editTeacherForm(Model model, @PathVariable int id) {
         model.addAttribute("teacher", teacherService.getTeacherById(id));
+        model.addAttribute("subjects", subjectService.getAllSubjects());
         return "edit_teacher";
     }
 

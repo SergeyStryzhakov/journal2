@@ -24,6 +24,12 @@ public class StudentController {
         return "students";
     }
 
+    @GetMapping(value = "/students/{id}")
+    public String showStudent(Model model, @PathVariable int id) {
+        model.addAttribute("students", studentService.getStudentById(id));
+        return "students";
+    }
+
     @GetMapping(value = "/students/new")
     public String createStudentForm(Model model) {
         Student student = new Student();
@@ -37,7 +43,7 @@ public class StudentController {
         return "redirect:/students";
     }
 
-    @GetMapping(value = "/students/{id}")
+    @GetMapping(value = "/students/remove/{id}")
     public String removeStudent(@PathVariable int id) {
         studentService.removeStudent(id);
         return "redirect:/students";

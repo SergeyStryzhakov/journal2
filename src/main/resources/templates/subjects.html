@@ -52,6 +52,7 @@
         <tr>
             <th> Subject title</th>
             <th> Subjects hours</th>
+            <th> Teachers</th>
             <th> Actions</th>
         </tr>
         </thead>
@@ -61,10 +62,16 @@
             <td th:text="${subject.title}"></td>
             <td th:text="${subject.hours}"></td>
             <td>
+                <span
+                        th:each="teacher: ${subject.teacherList}"
+                        th:text="${teacher.firstName + ' ' + teacher.lastName + ' '}">
+                </span>
+            </td>
+            <td>
                 <a th:href="@{/subjects/edit/{id}(id=${subject.id})}"
                    class="btn btn-primary">Update</a>
 
-                <a th:href="@{/subjects/{id}(id=${subject.id})}"
+                <a th:href="@{/subjects/remove/{id}(id=${subject.id})}"
                    class="btn btn-danger">Delete</a>
 
             </td>

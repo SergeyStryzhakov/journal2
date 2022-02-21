@@ -54,6 +54,7 @@
             <th> Teacher Last Name</th>
             <th> Salary</th>
             <th> Subject</th>
+            <th> Actions</th>
         </tr>
         </thead>
 
@@ -67,7 +68,7 @@
                 <a th:href="@{/teachers/edit/{id}(id=${teacher.id})}"
                    class="btn btn-primary">Update</a>
 
-                <a th:href="@{/teachers/{id}(id=${teacher.id})}"
+                <a th:href="@{/teachers/remove/{id}(id=${teacher.id})}"
                    class="btn btn-danger">Delete</a>
 
             </td>
