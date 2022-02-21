@@ -41,50 +41,50 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
-            <h1 class="text-center"> Create New Student </h1>
+            <h1 class="text-center"> Create New Teacher </h1>
             <div class="card-body">
-                <form th:action="@{/students}" th:object="${student}" method="POST">
+                <form th:action="@{/teachers}" th:object="${teacher}" method="POST">
                     <div class="form-group">
-                        <label> Student First Name </label>
+                        <label> Teacher First Name </label>
                         <input
                                 type="text"
                                 name="firstName"
                                 th:field="*{firstName}"
                                 class="form-control"
-                                placeholder="Enter Student First Name"
+                                placeholder="Enter Teacher First Name"
                         />
                     </div>
 
                     <div class="form-group">
-                        <label> Student Last Name </label>
+                        <label> Teacher Last Name </label>
                         <input
                                 type="text"
                                 name="lastName"
                                 th:field="*{lastName}"
                                 class="form-control"
-                                placeholder="Enter Student Last Name"
+                                placeholder="Enter Teacher Last Name"
                         />
                     </div>
 
                     <div class="form-group">
-                        <label> Student Age </label>
+                        <label> Salary </label>
                         <input
-                                type="text"
-                                name="age"
-                                th:field="*{age}"
+                                type="number"
+                                name="salary"
+                                th:field="*{salary}"
                                 class="form-control"
-                                placeholder="Enter Student Age"
+                                placeholder="Enter salary"
                         />
                     </div>
                     <div class="form-group">
-                        <label> Student Group </label>
-                        <input
-                                type="text"
-                                name="group"
-                                th:field="*{groupName}"
-                                class="form-control"
-                                placeholder="Enter Student Group"
-                        />
+                        <label for="subject"> Subject </label>
+                        <select required th:field="*{subject}" id="subject"  class="form-control">
+                            <option
+                                    th:each="subject: ${subjects}"
+                                    th:value="${subject.id}"
+                                    th:text="${subject.title}"
+                            ></option>
+                        </select>
                     </div>
 
                     <div class="box-footer">

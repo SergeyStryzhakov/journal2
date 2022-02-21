@@ -1,6 +1,7 @@
 package com.lab3.journal2.entities;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "LAB3_SSM_STUDENTS")
@@ -16,6 +17,8 @@ public class Student {
     private int age;
     @Column(name = "GROUPNAME", nullable = false)
     private String groupName;
+    @OneToMany(mappedBy = "student")
+    private List<Mark> marks;
 
     public Student(String firstName, String lastName, int age, String groupNumber) {
         super();
@@ -66,6 +69,14 @@ public class Student {
 
     public void setGroupName(String groupName) {
         this.groupName = groupName;
+    }
+
+    public List<Mark> getMarks() {
+        return marks;
+    }
+
+    public void setMarks(List<Mark> marks) {
+        this.marks = marks;
     }
 
     @Override
