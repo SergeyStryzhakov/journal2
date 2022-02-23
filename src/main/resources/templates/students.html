@@ -50,6 +50,7 @@
     <table class="table table-striped table-bordered">
         <thead class="table-dark">
         <tr>
+            <th> ID</th>
             <th> Student First Name</th>
             <th> Student Last Name</th>
             <th> Student age</th>
@@ -60,6 +61,12 @@
 
         <tbody>
         <tr th:each="student: ${students}">
+            <td><a
+                    th:href="@{/journal/{id}(id=${student.id})}"
+                    th:text="${student.id}">
+
+            </a>
+            </td>
             <td th:text="${student.firstName}"></td>
             <td th:text="${student.lastName}"></td>
             <td th:text="${student.age}"></td>

@@ -4,6 +4,7 @@ import com.lab3.journal2.entities.Student;
 
 import java.util.List;
 
+
 public interface StudentService {
     List<Student> getAllStudents();
 

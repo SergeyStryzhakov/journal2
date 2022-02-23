@@ -5,10 +5,11 @@ import com.lab3.journal2.repositories.StudentRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service //TODO Read about @Service
 public class StudentServiceImpl implements StudentService {
-    private StudentRepository studentRepository;
+    private final StudentRepository studentRepository;
 
     public StudentServiceImpl(StudentRepository studentRepository) {
         super();
@@ -22,7 +23,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Student getStudentById(int id) {
-        return studentRepository.findById(id).get();
+        return studentRepository.getById(id);
     }
 
     @Override
