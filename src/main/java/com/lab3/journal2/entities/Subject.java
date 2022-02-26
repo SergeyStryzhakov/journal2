@@ -1,20 +1,17 @@
 package com.lab3.journal2.entities;
 
-import javax.persistence.*;
 import java.util.List;
 
-@Entity
-@Table(name = "LAB3_SSM_SUBJECTS")
+
 public class Subject {
-    @Id
-    @Column(name = "SUBJECT_ID")
+
     private int id;
-    @Column(name = "NAME")
+
     private String title;
-    @Column
+
     private int hours;
 
-    @OneToMany(mappedBy = "subject")
+
     private List<Teacher> teacherList;
 
     public Subject(int id, String title, int hours) {

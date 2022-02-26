@@ -34,7 +34,7 @@ public class SubjectController {
 
     @PostMapping("/subjects")
     public String saveStudent(@ModelAttribute("subject") Subject subject) {
-        subjectService.saveSubject(subject);
+        subjectService.createSubject(subject);
         return "redirect:/subjects";
     }
 
@@ -52,12 +52,11 @@ public class SubjectController {
 
     @PostMapping(value = "/subjects/{id}")
     public String updateSubject(@PathVariable int id,
-                                @ModelAttribute("subject") Subject subject,
-                                Model model) {
+                                @ModelAttribute("subject") Subject subject) {
         Subject tempSubject = subjectService.getSubjectById(id);
         tempSubject.setTitle(subject.getTitle());
         tempSubject.setHours(subject.getHours());
-        subjectService.saveSubject(tempSubject);
+        subjectService.updateSubject(tempSubject);
         return "redirect:/subjects";
     }
 }

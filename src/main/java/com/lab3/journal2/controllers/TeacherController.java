@@ -25,6 +25,7 @@ public class TeacherController {
     @GetMapping(value = "/teachers")
     public String listTeachers(Model model) {
         model.addAttribute("teachers", teacherService.getAllTeachers());
+        model.addAttribute("subjects", subjectService.getAllSubjects());
         return "teachers";
     }
 
@@ -38,7 +39,7 @@ public class TeacherController {
 
     @PostMapping("/teachers")
     public String saveTeacher(@ModelAttribute("teacher") Teacher teacher) {
-        teacherService.saveTeacher(teacher);
+        teacherService.createTeacher(teacher);
         return "redirect:/teachers";
     }
 
@@ -57,8 +58,7 @@ public class TeacherController {
 
     @PostMapping(value = "/teachers/{id}")
     public String updateTeacher(@PathVariable int id,
-                                @ModelAttribute("teacher") Teacher teacher,
-                                Model model) {
+                                @ModelAttribute("teacher") Teacher teacher) {
         Teacher tempTeacher = teacherService.getTeacherById(id);
         tempTeacher.setId(id);
         tempTeacher.setFirstName(teacher.getFirstName());

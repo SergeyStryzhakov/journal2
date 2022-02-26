@@ -1,27 +1,20 @@
 package com.lab3.journal2.entities;
 
-import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
-@Entity
-@Table(name = "LAB3_SSM_STUDENTS")
 public class Student {
-    @Id
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    @Column(name = "FNAME", nullable = false)
-    private String firstName;
-    @Column(name = "LNAME", nullable = false)
-    private String lastName;
-    @Column
-    private int age;
-    @Column(name = "GROUPNAME", nullable = false)
-    private String groupName;
-    @OneToMany(mappedBy = "student")
-    private List<Mark> marks;
 
-    public Student(String firstName, String lastName, int age, String groupNumber) {
+    private int id;
+    private String firstName;
+    private String lastName;
+    private int age;
+    private String groupName;
+    private List<Mark> markList;
+
+    public Student(int id, String firstName, String lastName, int age, String groupNumber) {
         super();
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
@@ -71,12 +64,15 @@ public class Student {
         this.groupName = groupName;
     }
 
-    public List<Mark> getMarks() {
-        return marks;
+    public List<Mark> getMarkList() {
+        if (markList == null) {
+            markList = new ArrayList<>();
+        }
+        return markList;
     }
 
-    public void setMarks(List<Mark> marks) {
-        this.marks = marks;
+    public void setMarkList(List<Mark> markList) {
+        this.markList = markList;
     }
 
     @Override

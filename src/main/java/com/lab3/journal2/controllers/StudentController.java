@@ -39,7 +39,7 @@ public class StudentController {
 
     @PostMapping("/students")
     public String saveStudent(@ModelAttribute("student") Student student) {
-        studentService.saveStudent(student);
+        studentService.createStudent(student);
         return "redirect:/students";
     }
 

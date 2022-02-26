@@ -1,23 +1,19 @@
 package com.lab3.journal2.entities;
 
-import javax.persistence.*;
 
-@Entity
-@Table(name = "LAB3_SSM_TEACHERS")
 public class Teacher {
-    @Id
-    private int id;
-    @Column(name = "FNAME")
-    private String firstName;
-    @Column(name = "LNAME")
-    private String lastName;
-    @Column
-    private float salary;
-    @ManyToOne
-    @JoinColumn(name = "SUBJECT")
-    private Subject subject;
 
-    public Teacher(int id, String firstName, String lastName,  float salary, Subject subject) {
+    private int id;
+
+    private String firstName;
+
+    private String lastName;
+
+    private float salary;
+
+    private int subject;
+
+    public Teacher(int id, String firstName, String lastName,  float salary, int subject) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -61,11 +57,11 @@ public class Teacher {
         this.salary = salary;
     }
 
-    public Subject getSubject() {
+    public int getSubject() {
         return subject;
     }
 
-    public void setSubject(Subject subject) {
+    public void setSubject(int subject) {
         this.subject = subject;
     }
 }

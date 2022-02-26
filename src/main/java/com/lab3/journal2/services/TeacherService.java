@@ -9,9 +9,9 @@ public interface TeacherService {
 
     Teacher getTeacherById(int id);
 
-    Teacher saveTeacher(Teacher teacher);
+    void createTeacher(Teacher teacher);
 
-    Teacher updateTeacher(Teacher teacher);
+    int updateTeacher(Teacher teacher);
 
     void removeTeacher(int id);
 

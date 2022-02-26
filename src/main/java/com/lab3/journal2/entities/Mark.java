@@ -1,45 +1,27 @@
 package com.lab3.journal2.entities;
 
-import javax.persistence.*;
 
-@Entity
-@Table(name = "LAB3_SSM_MARKS")
 public class Mark {
-    @Id
-    private int id;
-    @ManyToOne
-    @JoinColumn(name = "STUDENT_ID")
-    private Student student;
-    @ManyToOne
-    @JoinColumn(name = "SUBJECT")
-    private Subject subject;
-    @Column(name = "CREATED")
-    private String created;
-    @Column(name = "MARK")
-    private int value;
-    @ManyToOne
-    @JoinColumn(name = "TEACHER")
-    private Teacher teacher;
 
-    public Mark(int id, Student student, Subject subject, String created, int value, Teacher teacher) {
+    private int id;
+    private Student student;
+    private Subject subject;
+    private Teacher teacher;
+    private String created;
+    private int value;
+
+
+    public Mark(int id, Student student, Subject subject, Teacher teacher, String created, int value) {
         super();
         this.id = id;
         this.student = student;
         this.subject = subject;
+        this.teacher = teacher;
         this.created = created;
         this.value = value;
-        this.teacher = teacher;
     }
 
     public Mark() {
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public Student getStudent() {
@@ -58,6 +40,22 @@ public class Mark {
         this.subject = subject;
     }
 
+    public Teacher getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getCreated() {
         return created;
     }
@@ -74,11 +72,5 @@ public class Mark {
         this.value = value;
     }
 
-    public Teacher getTeacher() {
-        return teacher;
-    }
 
-    public void setTeacher(Teacher teacher) {
-        this.teacher = teacher;
-    }
 }

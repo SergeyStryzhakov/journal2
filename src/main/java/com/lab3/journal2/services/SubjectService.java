@@ -8,9 +8,9 @@ public interface SubjectService {
     List<Subject> getAllSubjects();
     Subject getSubjectById(int id);
 
-    Subject saveSubject(Subject subject);
+    void createSubject(Subject subject);
 
-    Subject updateSubject(Subject subject);
+    int updateSubject(Subject subject);
 
     void removeSubject(int id);
 }

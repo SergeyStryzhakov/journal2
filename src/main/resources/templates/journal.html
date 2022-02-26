@@ -45,18 +45,23 @@
     <table class="table table-striped table-bordered">
         <thead class="table-dark">
         <tr>
-            <th> Student First Name</th>
-            <th> Student Last Name</th>
-            <th th:each="subject: ${subjects}" th:text="${subject.title}"></th>
+            <th> Date</th>
+            <th> Student</th>
+            <th> Subject</th>
+            <th> Teacher</th>
+            <th> Mark</th>
+<!--            <th th:each="subject: ${subjects}" th:text="${subject.title}"></th>-->
 
         </tr>
         </thead>
 
         <tbody>
-        <tr th:each="student: ${students}">
-            <td th:text="${student.firstName}"></td>
-            <td th:text="${student.lastName}"></td>
-            <td th:each="mark: ${student.marks}" th:text="${mark.value}"></td>
+        <tr th:each="mark: ${marks}">
+            <td th:text="${mark.created}"></td>
+            <td th:text="${mark.student.firstName} + ' ' + ${mark.student.lastName}"></td>
+            <td th:text="${mark.subject.title}"></td>
+            <td th:text="${mark.teacher.firstName} + ' ' + ${mark.teacher.lastName}"></td>
+            <td th:text="${mark.value}"></td>
         </tr>
         </tbody>
 

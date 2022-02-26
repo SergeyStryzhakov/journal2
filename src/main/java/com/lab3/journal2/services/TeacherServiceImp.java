@@ -26,17 +26,18 @@ public class TeacherServiceImp implements TeacherService {
     }
 
     @Override
-    public Teacher saveTeacher(Teacher teacher) {
-        return teacherRepository.save(teacher);
+    public void createTeacher(Teacher teacher) {
+        teacherRepository.create(teacher);
     }
 
     @Override
-    public Teacher updateTeacher(Teacher teacher) {
-        return teacherRepository.save(teacher);
+    public int updateTeacher(Teacher teacher) {
+        return teacherRepository.update(teacher);
     }
 
     @Override
     public void removeTeacher(int id) {
         teacherRepository.deleteById(id);
     }
+
 }

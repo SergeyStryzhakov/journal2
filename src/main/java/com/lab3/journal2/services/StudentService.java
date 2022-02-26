@@ -10,10 +10,10 @@ public interface StudentService {
 
     Student getStudentById(int id);
 
-    Student saveStudent(Student student);
-
-    Student updateStudent(Student student);
+    void updateStudent(Student student);
 
     void removeStudent(int id);
+
+    void createStudent(Student student);
 
 }
