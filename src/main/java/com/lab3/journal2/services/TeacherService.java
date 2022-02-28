@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface TeacherService {
     List<Teacher> getAllTeachers();
+    List<Teacher> getAllTeachersBySubject(int id);
 
     Teacher getTeacherById(int id);
 

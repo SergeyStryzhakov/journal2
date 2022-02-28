@@ -1,41 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head>
-    <meta charset="ISO-8859-1">
-    <title>Student Management System</title>
-    <link rel="stylesheet"
-          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-          crossorigin="anonymous">
-</head>
+<head th:replace="~{fragments/header::header}"></head>
 <body>
-<nav class="navbar navbar-expand-md bg-dark navbar-dark">
-    <!-- Brand -->
-    <a class="navbar-brand" href="#">Student Management System</a>
-
-    <!-- Toggler/collapsibe Button -->
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <!-- Navbar links -->
-    <div class="collapse navbar-collapse" id="collapsibleNavbar">
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link" href="/journal">Show journal</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/students">Student Management</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/subjects">Subject Management</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/teachers">Teacher Management</a>
-            </li>
-        </ul>
-    </div>
-</nav>
+<nav th:replace="~{fragments/navbar::navbar}"></nav>
 
 <div class="container">
     <div class="row">
@@ -50,8 +17,8 @@
     <table class="table table-striped table-bordered">
         <thead class="table-dark">
         <tr>
-            <th> Teacher First Name</th>
-            <th> Teacher Last Name</th>
+            <th> Id</th>
+            <th> Teacher</th>
             <th> Salary</th>
             <th> Subject</th>
             <th> Actions</th>
@@ -59,11 +26,12 @@
         </thead>
 
         <tbody>
-        <tr th:each="teacher: ${teachers}">
-            <td th:text="${teacher.firstName}"></td>
-            <td th:text="${teacher.lastName}"></td>
+        <tr th:each="teacher, idx: ${teachers}">
+            <td th:text="${idx.count}"></td>
+            <td th:text="${teacher.firstName} + ' '
+            + ${teacher.lastName}"></td>
             <td th:text="${teacher.salary}"></td>
-            <td th:text="${subjects.get(teacher.subject)}"></td>
+            <td th:text="${teacher.subject.title}"></td>
             <td>
                 <a th:href="@{/teachers/edit/{id}(id=${teacher.id})}"
                    class="btn btn-primary">Update</a>

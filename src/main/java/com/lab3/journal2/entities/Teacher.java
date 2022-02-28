@@ -11,13 +11,12 @@ public class Teacher {
 
     private float salary;
 
-    private int subject;
+    private Subject subject;
 
-    public Teacher(int id, String firstName, String lastName,  float salary, int subject) {
+    public Teacher(int id, String firstName, String lastName, float salary, Subject subject) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
-
         this.salary = salary;
         this.subject = subject;
     }
@@ -57,11 +56,11 @@ public class Teacher {
         this.salary = salary;
     }
 
-    public int getSubject() {
+    public Subject getSubject() {
         return subject;
     }
 
-    public void setSubject(int subject) {
+    public void setSubject(Subject subject) {
         this.subject = subject;
     }
 }

@@ -21,6 +21,11 @@ public class TeacherServiceImp implements TeacherService {
     }
 
     @Override
+    public List<Teacher> getAllTeachersBySubject(int id) {
+        return teacherRepository.getBySubjectId(id);
+    }
+
+    @Override
     public Teacher getTeacherById(int id) {
         return teacherRepository.getById(id);
     }

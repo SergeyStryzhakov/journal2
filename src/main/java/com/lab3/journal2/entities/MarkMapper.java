@@ -13,7 +13,7 @@ public class MarkMapper implements RowMapper<Mark> {
         Mark mark = new Mark();
         mark.setId(rs.getInt("MARK_ID"));
         mark.setValue(rs.getInt("VALUE"));
-        mark.setCreated(rs.getString("CREATED"));
+        mark.setCreated(rs.getDate("CREATED").toString());
         mark.setStudent(new Student(
                 rs.getInt("STUDENT_ID"),
                 rs.getString("STUDENT_FNAME"),
@@ -30,7 +30,10 @@ public class MarkMapper implements RowMapper<Mark> {
                 rs.getString("TEACHER_FNAME"),
                 rs.getString("TEACHER_LNAME"),
                 rs.getFloat("SALARY"),
-                rs.getInt("SUBJECT_ID")));
+                new Subject(
+                        rs.getInt("SUBJECT_ID"),
+                        rs.getString("TITLE"),
+                        rs.getInt("HOURS"))));
         return mark;
 
     }

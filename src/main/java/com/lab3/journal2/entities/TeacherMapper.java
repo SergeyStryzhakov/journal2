@@ -13,7 +13,10 @@ public class TeacherMapper implements RowMapper<Teacher> {
         teacher.setFirstName(rs.getString("TEACHER_FNAME"));
         teacher.setLastName(rs.getString("TEACHER_LNAME"));
         teacher.setSalary(rs.getFloat("SALARY"));
-        teacher.setSubject(rs.getInt("SUBJECT"));
+        teacher.setSubject(new Subject(
+                rs.getInt("SUBJECT"),
+                rs.getString("TITLE"),
+                rs.getInt("HOURS")));
         return teacher;
     }
 }

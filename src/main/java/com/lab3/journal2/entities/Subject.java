@@ -11,8 +11,7 @@ public class Subject {
 
     private int hours;
 
-
-    private List<Teacher> teacherList;
+    //private List<Teacher> teacherList;
 
     public Subject(int id, String title, int hours) {
         super();
@@ -48,13 +47,13 @@ public class Subject {
         this.hours = hours;
     }
 
-    public List<Teacher> getTeacherList() {
-        return teacherList;
-    }
-
-    public void setTeacherList(List<Teacher> teacherList) {
-        this.teacherList = teacherList;
-    }
+//    public List<Teacher> getTeacherList() {
+//        return teacherList;
+//    }
+//
+//    public void setTeacherList(List<Teacher> teacherList) {
+//        this.teacherList = teacherList;
+//    }
 
     @Override
     public String toString() {

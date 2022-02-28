@@ -1,8 +1,5 @@
 package com.lab3.journal2.entities;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Student {
 
     private int id;
@@ -10,7 +7,7 @@ public class Student {
     private String lastName;
     private int age;
     private String groupName;
-    private List<Mark> markList;
+
 
     public Student(int id, String firstName, String lastName, int age, String groupNumber) {
         super();
@@ -62,17 +59,6 @@ public class Student {
 
     public void setGroupName(String groupName) {
         this.groupName = groupName;
-    }
-
-    public List<Mark> getMarkList() {
-        if (markList == null) {
-            markList = new ArrayList<>();
-        }
-        return markList;
-    }
-
-    public void setMarkList(List<Mark> markList) {
-        this.markList = markList;
     }
 
     @Override

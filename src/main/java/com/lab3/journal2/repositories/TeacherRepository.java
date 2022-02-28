@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface TeacherRepository {
     List<Teacher> findAll();
+    List<Teacher> getBySubjectId(int id);
 
     Teacher getById(int id);
 

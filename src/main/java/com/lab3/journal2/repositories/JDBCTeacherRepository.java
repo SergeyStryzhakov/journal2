@@ -1,5 +1,6 @@
 package com.lab3.journal2.repositories;
 
+import com.lab3.journal2.entities.MarkMapper;
 import com.lab3.journal2.entities.Teacher;
 import com.lab3.journal2.entities.TeacherMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -17,14 +18,31 @@ public class JDBCTeacherRepository implements TeacherRepository {
 
     @Override
     public List<Teacher> findAll() {
-        return jdbcTemplate.query("select * from LAB3_SSM_TEACHERS", new TeacherMapper());
+        String sqlString = "SELECT * from " +
+                "lab3_ssm_teachers t, " +
+                "lab3_ssm_subjects sub WHERE " +
+                "t.subject = sub.subject_id ORDER BY t.TEACHER_ID";
+        return jdbcTemplate.query(sqlString, new TeacherMapper());
+    }
+
+    @Override
+    public List<Teacher> getBySubjectId(int id) {
+        String sqlString = "SELECT * from " +
+                "lab3_ssm_teachers t, " +
+                "lab3_ssm_subjects sub WHERE " +
+                "t.subject = sub.subject_id AND " +
+                "sub.SUBJECT_ID = ? ORDER BY t.TEACHER_ID";
+        return jdbcTemplate.query(sqlString, new TeacherMapper(), id);
     }
 
     @Override
     public Teacher getById(int id) {
-        return jdbcTemplate.queryForObject(
-                "select * from LAB3_SSM_TEACHERS WHERE TEACHER_ID = ?",
-                new TeacherMapper(), id);
+        String sqlString = "SELECT * from " +
+                "lab3_ssm_teachers t, " +
+                "lab3_ssm_subjects sub WHERE " +
+                "t.subject = sub.subject_id AND " +
+                "t.TEACHER_ID = ? ORDER BY t.TEACHER_ID";
+        return jdbcTemplate.queryForObject(sqlString, new TeacherMapper(), id);
     }
 
     @Override
@@ -38,7 +56,7 @@ public class JDBCTeacherRepository implements TeacherRepository {
                 teacher.getFirstName(),
                 teacher.getLastName(),
                 teacher.getSalary(),
-                teacher.getSubject(),
+                teacher.getSubject().getId(),
                 teacher.getId());
     }
 
@@ -55,6 +73,6 @@ public class JDBCTeacherRepository implements TeacherRepository {
                 teacher.getFirstName(),
                 teacher.getLastName(),
                 teacher.getSalary(),
-                teacher.getSubject());
+                teacher.getSubject().getId());
     }
 }

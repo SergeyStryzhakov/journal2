@@ -26,7 +26,7 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public Student getStudentById(int id) {
         Student student = studentRepository.getById(id);
-        student.setMarkList(markRepository.getByStudentId(id));
+        //student.setMarkList(markRepository.getByStudentId(id));
         return student;
     }
 

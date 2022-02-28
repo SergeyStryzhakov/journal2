@@ -1,6 +1,5 @@
 package com.lab3.journal2.controllers;
 
-import com.lab3.journal2.entities.Subject;
 import com.lab3.journal2.entities.Teacher;
 import com.lab3.journal2.services.SubjectService;
 import com.lab3.journal2.services.TeacherService;
@@ -11,13 +10,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import java.util.HashMap;
-import java.util.Map;
-
 @Controller
 public class TeacherController {
-    private TeacherService teacherService;
-    private SubjectService subjectService;
+    private final TeacherService teacherService;
+    private final SubjectService subjectService;
 
     public TeacherController(TeacherService teacherService, SubjectService subjectService) {
         super();
@@ -27,11 +23,13 @@ public class TeacherController {
 
     @GetMapping(value = "/teachers")
     public String listTeachers(Model model) {
-        Map<Integer, String> subjectList = new HashMap<>();
-        subjectService.getAllSubjects().forEach(
-                subject -> subjectList.put(subject.getId(), subject.getTitle()));
         model.addAttribute("teachers", teacherService.getAllTeachers());
-        model.addAttribute("subjects", subjectList);
+        return "teachers";
+    }
+
+    @GetMapping(value = "/teachers/{id}")
+    public String showTeacher(@PathVariable int id, Model model) {
+        model.addAttribute("teachers", teacherService.getTeacherById(id));
         return "teachers";
     }
 
