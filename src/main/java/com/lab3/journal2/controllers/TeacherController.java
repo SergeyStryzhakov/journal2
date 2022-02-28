@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Controller
 public class TeacherController {
     private TeacherService teacherService;
@@ -24,14 +27,18 @@ public class TeacherController {
 
     @GetMapping(value = "/teachers")
     public String listTeachers(Model model) {
+        Map<Integer, String> subjectList = new HashMap<>();
+        subjectService.getAllSubjects().forEach(
+                subject -> subjectList.put(subject.getId(), subject.getTitle()));
         model.addAttribute("teachers", teacherService.getAllTeachers());
-        model.addAttribute("subjects", subjectService.getAllSubjects());
+        model.addAttribute("subjects", subjectList);
         return "teachers";
     }
 
     @GetMapping(value = "/teachers/new")
     public String createTeacherForm(Model model) {
         Teacher teacher = new Teacher();
+
         model.addAttribute("teacher", teacher);
         model.addAttribute("subjects", subjectService.getAllSubjects());
         return "create_teacher";

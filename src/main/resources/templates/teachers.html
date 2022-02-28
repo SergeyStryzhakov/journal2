@@ -63,7 +63,7 @@
             <td th:text="${teacher.firstName}"></td>
             <td th:text="${teacher.lastName}"></td>
             <td th:text="${teacher.salary}"></td>
-            <td th:text="${subjects.get(teacher.subject).title}"></td>
+            <td th:text="${subjects.get(teacher.subject)}"></td>
             <td>
                 <a th:href="@{/teachers/edit/{id}(id=${teacher.id})}"
                    class="btn btn-primary">Update</a>

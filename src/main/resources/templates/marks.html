@@ -46,17 +46,15 @@
         <thead class="table-dark">
         <tr>
             <th> Date</th>
-            <th> Teacher</th>
             <th th:each="subject: ${subjects}" th:text="${subject.title}"></th>
         </tr>
         </thead>
 
         <tbody>
-        <tr th:each="mark: ${marks}">
-            <td th:text="${mark.created}"></td>
-            <td th:text="${mark.teacher.firstName} + ' '
-            + ${mark.teacher.lastName} "></td>
-            <td th:text="${mark.value}">0</td>
+        <tr th:each="date: ${marks.keySet()}">
+            <td th:text="${date}"></td>
+            <td th:each="mark: ${marks.get(date).values()}"
+                th:text="${mark}">0</td>
         </tr>
         </tbody>
     </table>
