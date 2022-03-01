@@ -8,6 +8,7 @@ import java.util.List;
 public interface MarkService {
     List<Mark> getAllMarks();
     List<Mark> getMarksByStudentId(int id);
+    List<Mark> getMarksByTeacherId(int id);
     Mark getMarkById(int id);
     void updateMark(Mark mark);
     void createMark(Mark mark);

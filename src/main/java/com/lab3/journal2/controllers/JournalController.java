@@ -11,7 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,8 +39,18 @@ public class JournalController {
         model.addAttribute("marks", marks);
         return "journal";
     }
+    @GetMapping(value = "/journal/teachers/{id}")
+    public String showJournalByTeacher(Model model, @PathVariable int id) {
+        List<Student> students = studentService.getAllStudents();
+        List<Subject> subjects = subjectService.getAllSubjects();
+        List<Mark> marks = markService.getMarksByTeacherId(id);
+        model.addAttribute("students", students);
+        model.addAttribute("subjects", subjects);
+        model.addAttribute("marks", marks);
+        return "journal";
+    }
 
-    @GetMapping(value = "/journal/{id}")
+    @GetMapping(value = "/journal/students/{id}")
     public String showMarksByStudentId(Model model, @PathVariable int id) {
         Student student = studentService.getStudentById(id);
         List<Subject> subjects = subjectService.getAllSubjects();

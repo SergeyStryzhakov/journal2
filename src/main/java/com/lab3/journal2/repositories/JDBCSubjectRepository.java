@@ -17,7 +17,7 @@ public class JDBCSubjectRepository implements SubjectRepository {
 
     @Override
     public List<Subject> findAll() {
-        return jdbcTemplate.query("select * from LAB3_SSM_SUBJECTS", new SubjectMapper());
+        return jdbcTemplate.query("select * from LAB3_SSM_SUBJECTS order by TITLE", new SubjectMapper());
     }
 
     @Override
