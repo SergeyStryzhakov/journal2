@@ -28,7 +28,7 @@ public class TeacherController {
     }
 
     @GetMapping(value = "/teachers/{id}")
-    public String showTeacher(@PathVariable int id, Model model) {
+    public String showTeacher(Model model, @PathVariable int id) {
         model.addAttribute("teachers", teacherService.getTeacherById(id));
         return "teachers";
     }

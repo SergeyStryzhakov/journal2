@@ -9,10 +9,10 @@
         <h1 th:text="${student.firstName} + ' ' + ${student.lastName}"> marks</h1>
     </div>
 
-    <table class="table table-striped table-bordered" style="text-align: center">
+    <table class="table table-striped table-bordered border-dark border-3" style="text-align: center">
         <thead class="table-dark">
         <tr>
-            <th> Id</th>
+            <th> Num</th>
             <th> Date</th>
             <th th:each="subject: ${subjects}" th:text="${subject.title}"></th>
         </tr>

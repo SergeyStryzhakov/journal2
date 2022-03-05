@@ -25,7 +25,7 @@ public class JDBCMarkRepository implements MarkRepository {
                 "lab3_ssm_teachers t WHERE " +
                 "m.student_id = s.student_id AND " +
                 "m.teacher_id = t.teacher_id AND " +
-                "m.subject_id = sub.subject_id ORDER BY m.STUDENT_ID";
+                "m.subject_id = sub.subject_id ORDER BY m.CREATED";
         return jdbcTemplate.query(sqlString, new MarkMapper());
     }
 
@@ -39,7 +39,7 @@ public class JDBCMarkRepository implements MarkRepository {
                 "m.student_id = s.student_id AND " +
                 "m.teacher_id = t.teacher_id AND " +
                 "m.subject_id = sub.subject_id AND " +
-                "s.STUDENT_ID = ?";
+                "s.STUDENT_ID = ? ORDER BY m.CREATED ";
         return jdbcTemplate.query(sqlString, new MarkMapper(), id);
     }
 
@@ -53,7 +53,7 @@ public class JDBCMarkRepository implements MarkRepository {
                 "m.student_id = s.student_id AND " +
                 "m.teacher_id = t.teacher_id AND " +
                 "m.subject_id = sub.subject_id AND " +
-                "t.TEACHER_ID = ?";
+                "t.TEACHER_ID = ? ORDER BY m.CREATED";
         return jdbcTemplate.query(sqlString, new MarkMapper(), id);
     }
 
@@ -67,7 +67,7 @@ public class JDBCMarkRepository implements MarkRepository {
                 "m.student_id = s.student_id AND " +
                 "m.teacher_id = t.teacher_id AND " +
                 "m.subject_id = sub.subject_id AND " +
-                "sub.SUBJECT_ID = ?";
+                "sub.SUBJECT_ID = ? ORDER BY m.CREATED ";
         return jdbcTemplate.query(sqlString, new MarkMapper(), id);
     }
 
@@ -89,7 +89,7 @@ public class JDBCMarkRepository implements MarkRepository {
     public void create(Mark mark) {
         jdbcTemplate.update("insert into LAB3_SSM_MARKS(" +
                         "STUDENT_ID, SUBJECT_ID, CREATED, " +
-                        "VALUE, TEACHER_ID) values (?,?,?,?,?)",
+                        "VALUE, TEACHER_ID) values (?,?,to_date(?, 'RRRR.MM.DD'),?,?)",
                 mark.getStudent().getId(),
                 mark.getSubject().getId(),
                 mark.getCreated(),

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments/header::header}">
+
+
+</head>
+<body>
+<nav th:replace="~{fragments/navbar::navbar}"></nav>
+<br>
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
+            <h1 class="text-center"> Create New mark </h1>
+            <div class="card-body">
+                <form th:action="@{/journal}" th:object="${mark}" method="POST" id="addMarkForm">
+                    <div class="form-group">
+                        <label for="student"> Student </label>
+                        <select required th:field="*{student.id}" id="student" class="form-control">
+                            <option
+                                    th:each="student: ${students}"
+                                    th:value="${student.id}"
+                                    th:text="${student.firstName} + ' '
+                                    + ${student.lastName}"
+                            ></option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="addMarkSubject"> Subject </label>
+                        <select required th:field="*{subject.id}" id="addMarkSubject" class="form-control" >
+                            <option
+                                    th:each="subject: ${subjects}"
+                                    th:value="${subject.id}"
+                                    th:text="${subject.title}"
+                            ></option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="addMarkTeacher"> Teacher </label>
+                        <select required th:field="*{teacher.id}" id="addMarkTeacher" class="form-control">
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label> Date </label>
+                        <input
+                                type="date"
+                                name="date"
+                                th:field="*{created}"
+                                class="form-control"
+                                placeholder="Enter date"
+
+                        />
+                    </div>
+                    <div class="form-group">
+                        <label> Value </label>
+                        <input
+                                type="number"
+                                name="value"
+                                th:field="*{value}"
+                                class="form-control"
+                                placeholder="Enter value"/>
+                    </div>
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-primary" id="addMarkBtn">
+                            Create
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" th:src="@{/js/ajax_func.js}"></script>
+</body>
+</html>

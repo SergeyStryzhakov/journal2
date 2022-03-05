@@ -45,10 +45,10 @@ create table LAB3_SSM_MARKS
 (
     MARK_ID    NUMBER(3) not null
         constraint LAB3_SSM_MARKS_PK
-            primary key
+            primary key,
+    STUDENT_ID NUMBER(3) not null
         constraint LAB3_SSM_MARKS_FK3
             references LAB3_SSM_STUDENTS,
-    STUDENT_ID NUMBER(3) not null,
     SUBJECT_ID NUMBER(3) not null
         constraint LAB3_SSM_MARKS_FK1
             references LAB3_SSM_SUBJECTS,
