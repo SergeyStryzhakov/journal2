@@ -12,7 +12,7 @@
             <div class="card-body">
                 <form th:action="@{/teachers}" th:object="${teacher}" method="POST">
                     <div class="form-group">
-                        <label> Teacher First Name </label>
+                        <label class="fs-5 fw-bold"> First Name </label>
                         <input
                                 type="text"
                                 name="firstName"
@@ -23,7 +23,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label> Teacher Last Name </label>
+                        <label class="fs-5 fw-bold"> Last Name </label>
                         <input
                                 type="text"
                                 name="lastName"
@@ -34,7 +34,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label> Salary </label>
+                        <label class="fs-5 fw-bold"> Salary </label>
                         <input
                                 type="number"
                                 name="salary"
@@ -44,8 +44,8 @@
                         />
                     </div>
                     <div class="form-group">
-                        <label for="subject"> Subject </label>
-                        <select required th:field="*{subject.id}" id="subject"  class="form-control">
+                        <label for="subject" class="fs-5 fw-bold"> Subject </label>
+                        <select required th:field="*{subject.id}" id="subject" class="form-control">
                             <option
                                     th:each="subject: ${subjects}"
                                     th:value="${subject.id}"
@@ -55,8 +55,8 @@
                     </div>
 
                     <div class="box-footer">
-                        <button type="submit" class="btn btn-primary">
-                            Create
+                        <button type="submit" class="btn btn-primary mt-4">
+                            Create teacher
                         </button>
                     </div>
                 </form>

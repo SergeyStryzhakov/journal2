@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head th:replace="~{fragments/header::header}">
-
-
 </head>
 <body>
 <nav th:replace="~{fragments/navbar::navbar}"></nav>
@@ -11,11 +9,11 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
-            <h1 class="text-center"> Create New mark </h1>
+            <h1 class="text-center"> Create new mark </h1>
             <div class="card-body">
                 <form th:action="@{/journal}" th:object="${mark}" method="POST" id="addMarkForm">
                     <div class="form-group">
-                        <label for="student"> Student </label>
+                        <label for="student" class="fs-5 fw-bold"> Student </label>
                         <select required th:field="*{student.id}" id="student" class="form-control">
                             <option
                                     th:each="student: ${students}"
@@ -26,8 +24,8 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="addMarkSubject"> Subject </label>
-                        <select required th:field="*{subject.id}" id="addMarkSubject" class="form-control" >
+                        <label for="addMarkSubject" class="fs-5 fw-bold"> Subject </label>
+                        <select required th:field="*{subject.id}" id="addMarkSubject" class="form-control">
                             <option
                                     th:each="subject: ${subjects}"
                                     th:value="${subject.id}"
@@ -36,12 +34,12 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="addMarkTeacher"> Teacher </label>
+                        <label for="addMarkTeacher" class="fs-5 fw-bold"> Teacher </label>
                         <select required th:field="*{teacher.id}" id="addMarkTeacher" class="form-control">
                         </select>
                     </div>
                     <div class="form-group">
-                        <label> Date </label>
+                        <label class="fs-5 fw-bold"> Date </label>
                         <input
                                 type="date"
                                 name="date"
@@ -52,17 +50,19 @@
                         />
                     </div>
                     <div class="form-group">
-                        <label> Value </label>
-                        <input
-                                type="number"
-                                name="value"
-                                th:field="*{value}"
-                                class="form-control"
-                                placeholder="Enter value"/>
+                        <label for="value" class="fs-5 fw-bold"> Mark </label>
+                        <select required th:field="*{value}" id="value" class="form-control">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
                     </div>
+
                     <div class="box-footer">
-                        <button type="submit" class="btn btn-primary" id="addMarkBtn">
-                            Create
+                        <button type="submit" class="btn btn-primary mt-4" id="addMarkBtn">
+                            Save mark
                         </button>
                     </div>
                 </form>

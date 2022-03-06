@@ -99,4 +99,24 @@ public class JournalController {
         markService.createMark(mark);
         return "redirect:/journal";
     }
+
+    @GetMapping(value = "/journal/edit/{id}")
+    public String editMarkForm(Model model, @PathVariable int id) {
+        model.addAttribute("mark", markService.getMarkById(id));
+        return "edit_mark";
+    }
+
+    @PostMapping(value = "/journal/{id}")
+    public String editMark(@PathVariable int id,
+                           @ModelAttribute("mark") Mark mark) {
+//        Mark tempMark = markService.getMarkById(id);
+//        tempMark.setId(id);
+//        tempMark.setStudent(mark.getStudent());
+//        tempMark.setSubject(mark.getSubject());
+//        tempMark.setTeacher(mark.getTeacher());
+//        tempMark.setCreated(mark.getCreated());
+//        tempMark.setValue(mark.getValue());
+        markService.updateMark(mark);
+        return "redirect:/journal";
+    }
 }

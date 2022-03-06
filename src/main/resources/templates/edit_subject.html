@@ -12,7 +12,7 @@
             <div class="card-body">
                 <form th:action="@{/subjects/{id} (id=${subject.id})}" th:object="${subject}" method="POST">
                     <div class="form-group">
-                        <label> Subject title </label>
+                        <label class="fs-5 fw-bold"> Title </label>
                         <input
                                 type="text"
                                 name="title"
@@ -22,7 +22,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label> Subject hours </label>
+                        <label class="fs-5 fw-bold"> Hours </label>
                         <input
                                 type="number"
                                 name="hours"
@@ -32,7 +32,7 @@
                     </div>
 
                     <div class="box-footer">
-                        <button type="submit" class="btn btn-primary">
+                        <button type="submit" class="btn btn-primary mt-4">
                             Save
                         </button>
                     </div>

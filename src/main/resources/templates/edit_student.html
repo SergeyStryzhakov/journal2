@@ -12,7 +12,7 @@
             <div class="card-body">
                 <form th:action="@{/students/{id} (id=${student.id})}" th:object="${student}" method="POST">
                     <div class="form-group">
-                        <label> Student First Name </label>
+                        <label class="fs-5 fw-bold"> First Name </label>
                         <input
                                 type="text"
                                 name="firstName"
@@ -23,7 +23,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label> Student Last Name </label>
+                        <label class="fs-5 fw-bold"> Last Name </label>
                         <input
                                 type="text"
                                 name="lastName"
@@ -34,7 +34,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label> Student Age </label>
+                        <label class="fs-5 fw-bold"> Age </label>
                         <input
                                 type="text"
                                 name="age"
@@ -44,7 +44,7 @@
                         />
                     </div>
                     <div class="form-group">
-                        <label> Student Group </label>
+                        <label class="fs-5 fw-bold"> Group </label>
                         <input
                                 type="text"
                                 name="group"
@@ -55,7 +55,7 @@
                     </div>
 
                     <div class="box-footer">
-                        <button type="submit" class="btn btn-primary">
+                        <button type="submit" class="btn btn-primary mt-4">
                             Save
                         </button>
                     </div>

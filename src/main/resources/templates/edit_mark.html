@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments/header::header}">
+</head>
+<body>
+<nav th:replace="~{fragments/navbar::navbar}"></nav>
+<br>
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
+            <h1 class="text-center"> Edit mark </h1>
+            <div class="card-body">
+                <form th:action="@{/journal/{id} (id=${mark.id})}" th:object="${mark}" method="POST" id="editMarkForm">
+                    <div class="form-group">
+                        <label for="student" class="fs-5 fw-bold"> Student </label>
+                        <select required th:field="*{student.id}" id="student"  class="form-control">
+                            <option selected
+                                    th:value="${mark.student.id}"
+                                    th:text="${mark.student.firstName} + ' ' + ${mark.student.lastName}"
+                            ></option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject" class="fs-5 fw-bold"> Subject </label>
+                        <select required th:field="*{subject.id}" id="subject"  class="form-control">
+                            <option selected
+                                    th:value="${mark.subject.id}"
+                                    th:text="${mark.subject.title}"
+                            ></option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="teacher" class="fs-5 fw-bold"> Teacher </label>
+                        <select required th:field="*{teacher.id}" id="teacher"  class="form-control">
+                            <option selected
+                                    th:value="${mark.teacher.id}"
+                                    th:text="${mark.teacher.firstName} + ' ' + ${mark.teacher.lastName}"
+                            ></option>
+                        </select>
+                    </div>
+                        <div class="form-group">
+                            <label class="fs-5 fw-bold"> Date </label>
+                            <input
+                                    type="date"
+                                    name="created"
+                                    th:value="*{{created}}"
+                                    class="form-control"
+                                    placeholder="Enter date"
+                            />
+                        </div>
+                        <div class="form-group">
+                            <label for="editMark" class="fs-5 fw-bold"> Mark </label>
+                            <select required th:field="*{value}" id="editMark" class="form-control">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+
+                        <div class="col-auto">
+                            <button type="submit" class="btn btn-primary mt-4" id="editMarkBtn">
+                                Save
+                            </button>
+                        </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

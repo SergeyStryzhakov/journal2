@@ -101,8 +101,8 @@ public class JDBCMarkRepository implements MarkRepository {
     public int update(Mark mark) {
         return jdbcTemplate.update("update LAB3_SSM_MARKS " +
                         "SET STUDENT_ID = ?, SUBJECT_ID = ?," +
-                        " CREATED = ?, VALUE = ?, TEACHER_ID = ? " +
-                        "where ID = ?",
+                        " CREATED = to_date(?, 'RRRR.MM.DD'), VALUE = ?, TEACHER_ID = ? " +
+                        "where MARK_ID = ?",
                 mark.getStudent().getId(),
                 mark.getSubject().getId(),
                 mark.getCreated(),
@@ -113,6 +113,6 @@ public class JDBCMarkRepository implements MarkRepository {
 
     @Override
     public void deleteById(int id) {
-        jdbcTemplate.update("delete from LAB3_SSM_MARKS where ID = ?", id);
+        jdbcTemplate.update("delete from LAB3_SSM_MARKS where MARK_ID = ?", id);
     }
 }
