@@ -9,12 +9,12 @@
         <h1 th:text="${student.firstName} + ' ' + ${student.lastName}"> marks</h1>
     </div>
 
-    <table class="table table-striped table-bordered border-dark border-3" style="text-align: center">
+    <table class="table table-striped table-bordered border-dark border-3" style="text-align: center" id="marks">
         <thead class="table-dark">
         <tr>
             <th> Num</th>
             <th> Date</th>
-            <th th:each="subject: ${subjects}" th:text="${subject.title}"></th>
+            <th th:each="subject: ${subjects}" th:text="${subject.title}" th:attr="subject_id=${subject.id}"></th>
         </tr>
         </thead>
         <tbody>
@@ -22,11 +22,13 @@
             <td th:text="${idx.count}"></td>
             <td th:text="${date}"></td>
             <td th:each="mark: ${marks.get(date).values()}"
-                th:text="${mark}">0
-            </td>
+                th:text="${mark}"
+                th:attr="mark=true"
+            ></td>
         </tr>
         </tbody>
     </table>
 </div>
+<script type="text/javascript" th:src="@{/js/ajax_func.js}"></script>
 </body>
 </html>

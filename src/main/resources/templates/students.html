@@ -33,6 +33,8 @@
             <td th:text="${student.age}"></td>
             <td th:text="${student.groupName}"></td>
             <td style="width: 30%">
+                <a th:href="@{/journal/new/{id}(id=${student.id})}"
+                   class="btn btn-info">Add mark</a>
                 <a th:href="@{/journal/students/{id}(id=${student.id})}"
                    class="btn btn-info">Show marks</a>
                 <a th:href="@{/students/edit/{id}(id=${student.id})}"

@@ -56,6 +56,8 @@ public class JournalController {
         return "journal";
     }
 
+
+
     @GetMapping(value = "/journal/students/{id}")
     public String showMarksByStudentId(Model model, @PathVariable int id) {
         Student student = studentService.getStudentById(id);
@@ -83,10 +85,16 @@ public class JournalController {
         return "marks";
     }
 
-    @GetMapping(value = "/journal/new")
-    public String createMarkForm(Model model) {
+    @GetMapping(value = {"/journal/new/{id}"})
+    public String createMarkForm(Model model, @PathVariable int id) {
         Mark mark = new Mark();
-        model.addAttribute("students", studentService.getAllStudents());
+        List<Student> studentsList = new ArrayList<>();
+        if (id == 0) {
+            studentsList = studentService.getAllStudents();
+        } else {
+            studentsList.add(studentService.getStudentById(id));
+        }
+        model.addAttribute("students", studentsList);
         model.addAttribute("subjects", subjectService.getAllSubjects());
         model.addAttribute("teachers", teacherService.getAllTeachers());
         model.addAttribute("mark", mark);
@@ -95,7 +103,6 @@ public class JournalController {
 
     @PostMapping("/journal")
     public String createMark(@ModelAttribute("mark") Mark mark) {
-
         markService.createMark(mark);
         return "redirect:/journal";
     }
@@ -119,4 +126,5 @@ public class JournalController {
         markService.updateMark(mark);
         return "redirect:/journal";
     }
+
 }
