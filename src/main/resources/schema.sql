@@ -40,6 +40,7 @@ create table LAB3_SSM_TEACHERS
     SUBJECT       NUMBER
         constraint LAB3_SSM_TEACHERS_FK1
             references LAB3_SSM_SUBJECTS
+                on delete cascade
 );
 create table LAB3_SSM_MARKS
 (
@@ -48,15 +49,18 @@ create table LAB3_SSM_MARKS
             primary key,
     STUDENT_ID NUMBER(3) not null
         constraint LAB3_SSM_MARKS_FK3
-            references LAB3_SSM_STUDENTS,
+            references LAB3_SSM_STUDENTS
+                on delete cascade,
     SUBJECT_ID NUMBER(3) not null
         constraint LAB3_SSM_MARKS_FK1
-            references LAB3_SSM_SUBJECTS,
+            references LAB3_SSM_SUBJECTS
+                on delete cascade,
     CREATED    DATE      not null,
     VALUE      NUMBER,
     TEACHER_ID NUMBER(3) not null
         constraint LAB3_SSM_MARKS_FK2
             references LAB3_SSM_TEACHERS
+                on delete cascade
 );
 create sequence LAB3_SSM_STUDENTS_SEQ
     nocache;

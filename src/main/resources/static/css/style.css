@@ -44,11 +44,16 @@ body {
 tr {
     background-color: rgba(211, 235, 220, 0.5);
 }
-
-td {
-    font-size: large
+a{
+    text-decoration: none;
 }
-
 #journal_length {
     padding-bottom: 5px;
+}
+
+.selectMarks {
+    margin-right: 5px;
+}
+#addMarkTeacher {
+    margin-right: 5px;
 }

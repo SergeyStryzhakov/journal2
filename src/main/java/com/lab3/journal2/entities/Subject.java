@@ -47,13 +47,7 @@ public class Subject {
         this.hours = hours;
     }
 
-//    public List<Teacher> getTeacherList() {
-//        return teacherList;
-//    }
-//
-//    public void setTeacherList(List<Teacher> teacherList) {
-//        this.teacherList = teacherList;
-//    }
+
 
     @Override
     public String toString() {

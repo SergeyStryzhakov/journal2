@@ -1,16 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head th:replace="~{fragments/header::header}">
-
-
-</head>
+<head th:replace="~{fragments/header::header}"></head>
 <body>
 <nav th:replace="~{fragments/navbar::navbar}"></nav>
-
 <div class="page-wrap">
-
     <div class="container-fluid">
-
         <div style="text-align: center">
             <h1> Journal </h1>
         </div>
@@ -20,19 +14,18 @@
             </div>
         </div>
         <div class="tab">
-            <button type="button" class="btn btn-outline-secondary"
+            <button type="button" class="btn btn-outline-secondary fw-bold"
                     th:each="subject : ${subjects}"
                     th:text="${subject.title}"
                     th:attr="onclick=|getMarks(${subject.id})|">
-
             </button>
         </div>
-        <!--        <table class="table table-striped table-bordered border-dark border-3" style="text-align: center; width: 90%">-->
         <div style="display: inline-block; width: 90%">
-            <table id="journal" class="table table-striped table-bordered " style="text-align: center">
-                <thead class="bg-light">
+            <table id="journal" class="table table-striped table-bordered border-dark border-3"
+                   style="text-align: center">
+                <thead class="table-dark">
                 <tr>
-                    <th> Num</th>
+                    <th> No</th>
                     <th> Date</th>
                     <th> Student</th>
                     <th> Subject</th>
@@ -45,7 +38,7 @@
                     <td th:text="${idx.count}"></td>
                     <td th:text="${mark.created}"></td>
                     <td><a
-                            th:href="@{/students/{id}(id=${mark.student.id})}"
+                            th:href="@{/journal/students/{id}(id=${mark.student.id})}"
                             th:text="${mark.student.firstName} + ' '
                     + ${mark.student.lastName}"
                             class="link-dark">
@@ -63,7 +56,11 @@
                     </a></td>
                     <td><a th:href="@{/journal/edit/{id}(id=${mark.id})}"
                            th:text="${mark.value}"
-                           th:class="${mark.value} > 3 ? 'btn btn-success' :'btn btn-warning'"
+                           th:class="${mark.value} > 3 ?
+                           'btn btn-sm btn-success' :
+                           (${mark.value} < 3 ?
+                           'btn btn-sm btn-danger' :
+                           'btn btn-sm btn-warning')"
                     ></a></td>
                 </tr>
                 </tbody>

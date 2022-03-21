@@ -8,19 +8,33 @@ $(document).ready(function () {
         });
     }
     if (document.location.href.indexOf('/journal/students/') > -1) {
-        let cell = $('td[mark]');
-        console.log(cell.length);
+        let cell = $('td[mark=true]');
+        let row;
+        let column;
+        let subjectId;
         cell.dblclick(function (e) {
-            editMark(e);
+            if ($(this).children().length > 0) return;
+            $('#marks select').remove();
+            $('#marks button').remove();
+            row = e.target.parentNode.rowIndex;
+            column = e.target.cellIndex;
+            subjectId = document.getElementById('marks')
+                .rows[0].cells[column]
+                .getAttribute('subject_id');
+            editMark(e, subjectId);
         });
-
+        $(document).on('click',
+            '#saveMarkButton',
+            function () {
+                saveMark(row, column);
+            });
     }
 });
 
 function addTeacher(subjectId) {
     $.ajax({
         method: "POST",
-        url: "/api/teachers",
+        url: "/api/teachers/by_subject",
         data: {subjectId: subjectId},
         success: function (response) {
             let data = '';
@@ -36,26 +50,30 @@ function addTeacher(subjectId) {
 
 }
 
-function editMark(e) {
+function editMark(e, subjectId) {
     let cell = e.target;
+    cell.innerHTML = '<select class="selectMarks">' +
+        '<option value="1">1</option>'
+        + '<option value="2">2</option>'
+        + '<option value="3">3</option>'
+        + '<option value="4">4</option>'
+        + '<option value="5">5</option></select>'
+        + '<select id="addMarkTeacher" ></select>'
+        + '<button type="button" id="saveMarkButton" ' +
+        'class="btn btn-primary btn-sm">OK</button>';
+    addTeacher(subjectId);
 
-    let row = cell.parentNode.rowIndex;
-    let column = cell.cellIndex;
-    console.log('Row: ' + row);
-    console.log('Column: ' + column);
 
-    console.log($('#marks tbody').rows);
 }
-
 
 function getMarks(subjectId) {
     $.ajax({
         method: "POST",
-        url: "/api/journal",
+        url: "/api/marks/by_subject",
         data: {subjectId: subjectId},
         success: function (response) {
             let data = '';
-            console.log(response);
+            //console.log(response);
             $.each(response, function (idx, value) {
                 let mark = value.value;
                 let color = mark < 3 ?
@@ -78,6 +96,33 @@ function getMarks(subjectId) {
             });
             $('#journal tbody').html(data);
 
+        }
+    });
+}
+
+function saveMark(row, column) {
+    let marks = document.getElementById('marks');
+    let subjectId = marks.rows[0].cells[column]
+        .getAttribute('subject_id');
+    let studentId = $('#student').attr('student_id');
+    let created = marks.rows[row].cells[1].innerHTML;
+    let value = $('.selectMarks').eq(0).val();
+    let teacherId = $('#addMarkTeacher').val();
+    $.post({
+        url: "/journal/students/" + studentId,
+        data: {
+            subjectId: subjectId,
+            teacherId: teacherId,
+            created: created,
+            value: value
+        },
+        success: function () {
+            location.reload();
+        },
+        error: function (e) {
+            let err = "<h4>Response Error</h4><pre>"
+                + e.responseText + "</pre>";
+            $('body').html(err);
         }
     });
 }
