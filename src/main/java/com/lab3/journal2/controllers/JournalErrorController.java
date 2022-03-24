@@ -10,8 +10,12 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 
+/**
+ * Add some error pages for 404, 500 status codes
+ */
 @Controller
 public class JournalErrorController implements ErrorController {
+
     @RequestMapping(value = "/error")
     public String handleError(HttpServletRequest request, Model model) {
         Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);

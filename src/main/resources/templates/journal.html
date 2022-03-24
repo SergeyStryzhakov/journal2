@@ -5,10 +5,10 @@
 <nav th:replace="~{fragments/navbar::navbar}"></nav>
 <div class="page-wrap">
     <div class="container-fluid">
-        <div style="text-align: center">
+        <div class="captionTable">
             <h1> Journal </h1>
         </div>
-        <div style="text-align: end">
+        <div class="addButton">
             <div>
                 <a th:href="@{/journal/new/0}" class="btn btn-primary btn-sm mb-3"> Add mark</a>
             </div>
@@ -17,7 +17,7 @@
             <button type="button" class="btn btn-outline-secondary fw-bold"
                     th:each="subject : ${subjects}"
                     th:text="${subject.title}"
-                    th:attr="onclick=|getMarks(${subject.id})|">
+                    th:attr="onclick=|getMarksBySubject(${subject.id})|">
             </button>
         </div>
         <div style="display: inline-block; width: 90%">
@@ -36,22 +36,26 @@
                 <tbody>
                 <tr th:each="mark, idx: ${marks}">
                     <td th:text="${idx.count}"></td>
-                    <td th:text="${mark.created}"></td>
-                    <td><a
-                            th:href="@{/journal/students/{id}(id=${mark.student.id})}"
-                            th:text="${mark.student.firstName} + ' '
-                    + ${mark.student.lastName}"
-                            class="link-dark">
+                    <td><a href="#"
+                           th:attr="onclick=|getMarksByDate('${mark.created}')|"
+                           th:text="${mark.created}"
+                           class="link-dark">
                     </a></td>
                     <td><a
-                            th:href="@{/subjects/edit/{id}(id=${mark.subject.id})}"
+                            th:href="@{/journal/students/{id}(id=${mark.student.id})}"
+                            th:text="${mark.student.lastName} + ' '
+                    + ${mark.student.firstName}"
+                            class="link-dark">
+                    </a></td>
+                    <td><a href="#"
+                            th:attr="onclick=|getMarksBySubject(${mark.subject.id})|"
                             th:text="${mark.subject.title}"
                             class="link-dark">
                     </a></td>
-                    <td><a
-                            th:href="@{/teachers/{id}(id=${mark.teacher.id})}"
-                            th:text="${mark.teacher.firstName} + ' '
-                    + ${mark.teacher.lastName}"
+                    <td><a href="#"
+                            th:attr="onclick=|getMarksByTeacher(${mark.teacher.id})|"
+                            th:text="${mark.teacher.lastName} + ' '
+                    + ${mark.teacher.firstName}"
                             class="link-dark">
                     </a></td>
                     <td><a th:href="@{/journal/edit/{id}(id=${mark.id})}"

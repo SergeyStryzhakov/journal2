@@ -11,10 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
@@ -37,6 +34,12 @@ public class JournalController {
         this.teacherService = teacherService;
     }
 
+    /**
+     * Show marks for all students
+     *
+     * @param model model
+     * @return html page journal.html
+     */
     @GetMapping(value = "/journal")
     public String showJournal(Model model) {
         List<Student> students = studentService.getAllStudents();
@@ -48,6 +51,13 @@ public class JournalController {
         return "journal";
     }
 
+    /**
+     * Show all marks by teacher
+     *
+     * @param model model
+     * @param id    teacher id
+     * @return html page journal.html
+     */
     @GetMapping(value = "/journal/teachers/{id}")
     public String showJournalByTeacher(Model model, @PathVariable int id) {
         List<Student> students = studentService.getAllStudents();
@@ -60,6 +70,13 @@ public class JournalController {
         return "journal";
     }
 
+    /**
+     * Show all marks for specific student by id group by date
+     *
+     * @param model model
+     * @param id    student id
+     * @return html page marks.html
+     */
     @GetMapping(value = "/journal/students/{id}")
     public String showMarksByStudentId(Model model, @PathVariable int id) {
         Student student = studentService.getStudentById(id);
@@ -87,6 +104,16 @@ public class JournalController {
         return "marks";
     }
 
+    /**
+     * Create mark from marks.html page without create mark form
+     *
+     * @param id        student id
+     * @param subjectId subject id
+     * @param teacherId teacher id
+     * @param created   create date
+     * @param value     mark
+     * @return reload self page with js
+     */
     @PostMapping(value = "/journal/students/{id}")
     public String createSimpleMark(@PathVariable int id,
                                    @ModelAttribute("subjectId") int subjectId,
@@ -104,6 +131,13 @@ public class JournalController {
         return "redirect:/journal/students/" + id;
     }
 
+    /**
+     * Create form for making new mark
+     *
+     * @param model model
+     * @param id    student id
+     * @return create mark form html
+     */
     @GetMapping(value = {"/journal/new/{id}"})
     public String createMarkForm(Model model, @PathVariable int id) {
         Mark mark = new Mark();
@@ -117,24 +151,44 @@ public class JournalController {
         model.addAttribute("subjects", subjectService.getAllSubjects());
         model.addAttribute("teachers", teacherService.getAllTeachers());
         model.addAttribute("mark", mark);
-        LOGGER.info("Create mark form is ready.");
+        LOGGER.info("Create mark form is done.");
         return "create_mark";
     }
 
-    @PostMapping("/journal")
+    /**
+     * Create new mark in DB
+     *
+     * @param mark mark
+     * @return journal.html
+     */
+    @PostMapping("/journal/")
     public String createMark(@ModelAttribute("mark") Mark mark) {
         markService.createMark(mark);
         LOGGER.info("Mark created: " + mark);
         return "redirect:/journal";
     }
 
+    /**
+     * Create edit form mark
+     *
+     * @param model model
+     * @param id    mark id
+     * @return edit mark form
+     */
     @GetMapping(value = "/journal/edit/{id}")
     public String editMarkForm(Model model, @PathVariable int id) {
         model.addAttribute("mark", markService.getMarkById(id));
-        LOGGER.info("Edit form is ready.");
+        LOGGER.info("Edit form is done.");
         return "edit_mark";
     }
 
+    /**
+     * Edit mark in DB
+     *
+     * @param id   mark id
+     * @param mark mark
+     * @return journal.html
+     */
     @PostMapping(value = "/journal/{id}")
     public String editMark(@PathVariable int id,
                            @ModelAttribute("mark") Mark mark) {
@@ -143,6 +197,12 @@ public class JournalController {
         return "redirect:/journal";
     }
 
+    /**
+     * Delete mark from DB
+     *
+     * @param id mark
+     * @return journal.html
+     */
     @GetMapping(value = "/journal/remove/{id}")
     public String removeMark(@PathVariable int id) {
         markService.deleteMark(id);

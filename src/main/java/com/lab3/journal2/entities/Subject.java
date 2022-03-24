@@ -48,12 +48,10 @@ public class Subject {
     }
 
 
-
     @Override
     public String toString() {
         return "Subject{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
+                " title='" + title + '\'' +
                 ", hours=" + hours +
                 '}';
     }

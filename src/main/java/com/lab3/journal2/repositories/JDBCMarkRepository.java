@@ -72,6 +72,20 @@ public class JDBCMarkRepository implements MarkRepository {
     }
 
     @Override
+    public List<Mark> getByDate(String date) {
+        String sqlString = "SELECT * from " +
+                "lab3_ssm_marks m, " +
+                "lab3_ssm_students s, " +
+                "lab3_ssm_subjects sub, " +
+                "lab3_ssm_teachers t WHERE " +
+                "m.student_id = s.student_id AND " +
+                "m.teacher_id = t.teacher_id AND " +
+                "m.subject_id = sub.subject_id AND " +
+                "m.CREATED = to_date(?, 'RRRR.MM.DD') ORDER BY s.STUDENT_LNAME";
+        return jdbcTemplate.query(sqlString, new MarkMapper(), date);
+    }
+
+    @Override
     public Mark getById(int id) {
         String sqlString = "SELECT * from " +
                 "lab3_ssm_marks m, " +

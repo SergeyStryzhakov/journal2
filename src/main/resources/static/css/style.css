@@ -40,6 +40,12 @@ body {
 .tab button.active {
     background-color: #ccc;
 }
+.addButton {
+    text-align: end;
+}
+.captionTable {
+    text-align: center;
+}
 
 tr {
     background-color: rgba(211, 235, 220, 0.5);

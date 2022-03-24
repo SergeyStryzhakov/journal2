@@ -34,7 +34,7 @@ $(document).ready(function () {
 function addTeacher(subjectId) {
     $.ajax({
         method: "POST",
-        url: "/api/teachers/by_subject",
+        url: "/api/teachers/subject",
         data: {subjectId: subjectId},
         success: function (response) {
             let data = '';
@@ -66,36 +66,35 @@ function editMark(e, subjectId) {
 
 }
 
-function getMarks(subjectId) {
+function getMarksBySubject(subjectId) {
     $.ajax({
         method: "POST",
-        url: "/api/marks/by_subject",
+        url: "/api/marks/subject",
         data: {subjectId: subjectId},
         success: function (response) {
-            let data = '';
-            //console.log(response);
-            $.each(response, function (idx, value) {
-                let mark = value.value;
-                let color = mark < 3 ?
-                    'btn btn-danger' : mark > 3 ?
-                        'btn btn-success' : 'btn btn-warning';
-                let cell = "<a class='"
-                    + color
-                    + "' href='/journal/edit/"
-                    + value.id + "'>"
-                    + mark + "</a>";
+            drawTableBody(response);
+        }
+    });
+}
 
-                data += '<tr><td>' + (idx + 1) + '</td><td>'
-                    + value.created + '</td><td>'
-                    + value.student.firstName + ' '
-                    + value.student.lastName + '</td><td>'
-                    + value.subject.title + '</td><td>'
-                    + value.teacher.firstName + ' '
-                    + value.teacher.lastName + '</td><td>'
-                    + cell + '</td></tr>'
-            });
-            $('#journal tbody').html(data);
+function getMarksByDate(date) {
+    $.ajax({
+        method: "POST",
+        url: "/api/marks/date",
+        data: {date: date},
+        success: function (response) {
+            drawTableBody(response);
+        }
+    });
+}
 
+function getMarksByTeacher(teacherId) {
+    $.ajax({
+        method: "POST",
+        url: "/api/marks/teacher",
+        data: {teacherId: teacherId},
+        success: function (response) {
+            drawTableBody(response);
         }
     });
 }
@@ -125,4 +124,29 @@ function saveMark(row, column) {
             $('body').html(err);
         }
     });
+}
+
+function drawTableBody(data) {
+    let temp = '';
+    $.each(data, function (idx, value) {
+        let mark = value.value;
+        let color = mark < 3 ?
+            'btn btn-danger' : mark > 3 ?
+                'btn btn-success' : 'btn btn-warning';
+        let cell = "<a class='"
+            + color
+            + "' href='/journal/edit/"
+            + value.id + "'>"
+            + mark + "</a>";
+
+        temp += '<tr><td>' + (idx + 1) + '</td><td>'
+            + value.created + '</td><td>'
+            + value.student.lastName + ' '
+            + value.student.firstName + '</td><td>'
+            + value.subject.title + '</td><td>'
+            + value.teacher.lastName + ' '
+            + value.teacher.firstName + '</td><td>'
+            + cell + '</td></tr>'
+    });
+    $('#journal tbody').html(temp);
 }

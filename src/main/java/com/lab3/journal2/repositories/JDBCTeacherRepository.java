@@ -21,7 +21,7 @@ public class JDBCTeacherRepository implements TeacherRepository {
         String sqlString = "SELECT * from " +
                 "lab3_ssm_teachers t, " +
                 "lab3_ssm_subjects sub WHERE " +
-                "t.subject = sub.subject_id ORDER BY t.TEACHER_ID";
+                "t.subject = sub.subject_id ORDER BY t.TEACHER_LNAME";
         return jdbcTemplate.query(sqlString, new TeacherMapper());
     }
 

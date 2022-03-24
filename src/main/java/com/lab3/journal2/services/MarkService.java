@@ -10,6 +10,7 @@ public interface MarkService {
     List<Mark> getMarksByStudentId(int id);
     List<Mark> getMarksByTeacherId(int id);
     List<Mark> getMarksBySubjectId(int id);
+    List<Mark> getMarksByDate(String date);
     Mark getMarkById(int id);
     void updateMark(Mark mark);
     void createMark(Mark mark);

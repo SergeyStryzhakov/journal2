@@ -26,12 +26,17 @@ public class MarkServiceImpl implements MarkService {
 
     @Override
     public List<Mark> getMarksByTeacherId(int id) {
-       return markRepository.getByTeacherId(id);
+        return markRepository.getByTeacherId(id);
     }
 
     @Override
     public List<Mark> getMarksBySubjectId(int id) {
         return markRepository.getBySubjectId(id);
+    }
+
+    @Override
+    public List<Mark> getMarksByDate(String date) {
+        return markRepository.getByDate(date);
     }
 
 

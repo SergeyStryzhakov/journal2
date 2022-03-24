@@ -63,4 +63,14 @@ public class Teacher {
     public void setSubject(Subject subject) {
         this.subject = subject;
     }
+
+    @Override
+    public String toString() {
+        return "Teacher{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", salary=" + salary +
+                ", subject=" + subject.getTitle() +
+                '}';
+    }
 }

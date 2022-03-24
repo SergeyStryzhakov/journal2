@@ -1,15 +1,12 @@
 package com.lab3.journal2.entities;
 
-
 public class Mark {
-
     private int id;
     private Student student;
     private Subject subject;
     private Teacher teacher;
     private String created;
     private int value;
-
 
     public Mark(int id, Student student, Subject subject, Teacher teacher, String created, int value) {
         super();
@@ -21,8 +18,7 @@ public class Mark {
         this.value = value;
     }
 
-    public Mark() {
-    }
+    public Mark() {}
 
     public Student getStudent() {
         return student;
@@ -72,5 +68,15 @@ public class Mark {
         this.value = value;
     }
 
-
+    @Override
+    public String toString() {
+        return "Mark{" +
+                "id=" + id +
+                ", student=" + student.getId() +
+                ", subject=" + subject.getId() +
+                ", teacher=" + teacher.getId() +
+                ", created='" + created + '\'' +
+                ", value=" + value +
+                '}';
+    }
 }

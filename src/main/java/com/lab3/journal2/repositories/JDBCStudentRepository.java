@@ -17,7 +17,7 @@ public class JDBCStudentRepository implements StudentRepository {
 
     @Override
     public List<Student> findAll() {
-        return jdbcTemplate.query("select * from LAB3_SSM_STUDENTS", new StudentMapper());
+        return jdbcTemplate.query("select * from LAB3_SSM_STUDENTS ORDER BY STUDENT_LNAME", new StudentMapper());
     }
 
     @Override
