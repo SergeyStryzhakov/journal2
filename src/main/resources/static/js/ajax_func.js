@@ -1,5 +1,17 @@
 $(document).ready(function () {
-
+    if (document.location.pathname === '/journal') {
+        let dateSet = createDateSet();
+        $('#datepicker').datepicker({
+            beforeShowDay: function (d) {
+                if (dateSet.has(formatDate(d))) {
+                    return {classes: "haveMarks", tooltip: "Have marks"}
+                }
+            }
+        }).on('changeDate', function (e) {
+            let date = formatDate(e.date);
+            getMarksByDate(date);
+        });
+    }
     if (document.location.href.indexOf('/journal/new/') > -1) {
         let subject = $('#addMarkSubject');
         addTeacher(subject.val());
@@ -76,7 +88,7 @@ function getMarksBySubject(subjectId) {
             drawTableBody(response);
         },
         error: function () {
-          errorHandler();
+            errorHandler();
         }
 
     });
@@ -91,7 +103,7 @@ function getMarksByDate(date) {
             drawTableBody(response);
         },
         error: function () {
-           errorHandler();
+            errorHandler();
         }
     });
 }
@@ -105,7 +117,7 @@ function getMarksByTeacher(teacherId) {
             drawTableBody(response);
         },
         error: function () {
-           errorHandler();
+            errorHandler();
         }
     });
 }
@@ -130,7 +142,7 @@ function saveMark(row, column) {
             location.reload();
         },
         error: function () {
-           errorHandler();
+            errorHandler();
         }
     });
 }
@@ -159,11 +171,35 @@ function drawTableBody(data) {
     });
     $('#journal tbody').html(temp);
 }
-function errorHandler(){
+
+function errorHandler() {
     setTimeout(() => location.reload(), 1500);
     $('#error_msg')
         .html('Sorry, '
             + $('#username').text()
             + ', access denied!')
         .show().hide(6000);
+}
+
+function formatDate(date) {
+    let d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2)
+        month = '0' + month;
+    if (day.length < 2)
+        day = '0' + day;
+
+    return [year, month, day].join('-');
+}
+
+function createDateSet() {
+    let rows = document.getElementById('journal').rows;
+    let dateSet = new Set();
+    for (let i = 1; i < rows.length; i++) {
+        dateSet.add(rows[i].cells[1].innerText);
+    }
+    return dateSet;
 }

@@ -49,10 +49,6 @@ body {
     text-align: center;
 }
 
-tr {
-    background-color: rgba(211, 235, 220, 0.5);
-}
-
 a {
     text-decoration: none;
 }
@@ -73,4 +69,13 @@ a {
     border-radius: 70%;
     transition: all 0.7s ease;
     box-shadow: inset 0 0 0 1px black;
+}
+
+#datepicker .table-condensed {
+
+    width: 280px;
+    height: 280px;
+}
+.haveMarks {
+    background-color: burlywood;
 }
