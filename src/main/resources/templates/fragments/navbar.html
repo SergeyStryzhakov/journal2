@@ -21,13 +21,29 @@
                 <a class="nav-link" href="/students">Students</a>
             </li>
             <li class="nav-item p-4">
-                <a class="nav-link" href="/subjects">Subjects</a>
+                <a sec:authorize="hasAnyAuthority({'ROLE_ADMIN', 'ROLE_TEACHER'})" class="nav-link" href="/subjects">Subjects</a>
             </li>
             <li class="nav-item p-4">
-                <a class="nav-link" href="/teachers">Teachers</a>
+                <a sec:authorize="hasAnyAuthority({'ROLE_ADMIN', 'ROLE_TEACHER'})" class="nav-link" href="/teachers">Teachers</a>
+            </li>
+            <li class="nav-item p-4">
+                <a sec:authorize="hasAuthority('ROLE_ADMIN')" class="nav-link" href="/users">Users</a>
             </li>
         </ul>
     </div>
+    <div style="float: right; height: 50px; width: 500px">
+        <div id="username" style="display: none">[[${#httpServletRequest.remoteUser}]]</div>
+        <p id="error_msg" style="text-align: center; color: red; font-size: large"></p>
+    </div>
+    <div>
+        <div style="color: white; text-align: center; margin-bottom: 5px">
+            [[${#httpServletRequest.remoteUser}]]
+        </div>
+        <form class="d-flex" th:action="@{/logout}" method="post" style="margin-right: 10px">
+            <button type="submit" class="btn btn-primary" th:inline="text">Logout</button>
+        </form>
+    </div>
 </nav>
+
 </body>
 </html>

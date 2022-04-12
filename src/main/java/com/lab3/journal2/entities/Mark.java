@@ -71,8 +71,7 @@ public class Mark {
     @Override
     public String toString() {
         return "Mark{" +
-                "id=" + id +
-                ", student=" + student.getId() +
+                "student=" + student.getId() +
                 ", subject=" + subject.getId() +
                 ", teacher=" + teacher.getId() +
                 ", created='" + created + '\'' +

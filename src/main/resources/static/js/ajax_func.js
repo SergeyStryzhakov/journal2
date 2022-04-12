@@ -36,9 +36,10 @@ function addTeacher(subjectId) {
         method: "POST",
         url: "/api/teachers/subject",
         data: {subjectId: subjectId},
+
         success: function (response) {
             let data = '';
-            $.each(response, function (idx, value) {
+            $.each(response, function (idx) {
                 data += '<option value=' + response[idx].id + '>'
                     + response[idx].firstName + ' '
                     + response[idx].lastName + '</option>';
@@ -73,7 +74,11 @@ function getMarksBySubject(subjectId) {
         data: {subjectId: subjectId},
         success: function (response) {
             drawTableBody(response);
+        },
+        error: function () {
+          errorHandler();
         }
+
     });
 }
 
@@ -84,6 +89,9 @@ function getMarksByDate(date) {
         data: {date: date},
         success: function (response) {
             drawTableBody(response);
+        },
+        error: function () {
+           errorHandler();
         }
     });
 }
@@ -95,6 +103,9 @@ function getMarksByTeacher(teacherId) {
         data: {teacherId: teacherId},
         success: function (response) {
             drawTableBody(response);
+        },
+        error: function () {
+           errorHandler();
         }
     });
 }
@@ -118,10 +129,8 @@ function saveMark(row, column) {
         success: function () {
             location.reload();
         },
-        error: function (e) {
-            let err = "<h4>Response Error</h4><pre>"
-                + e.responseText + "</pre>";
-            $('body').html(err);
+        error: function () {
+           errorHandler();
         }
     });
 }
@@ -149,4 +158,12 @@ function drawTableBody(data) {
             + cell + '</td></tr>'
     });
     $('#journal tbody').html(temp);
+}
+function errorHandler(){
+    setTimeout(() => location.reload(), 1500);
+    $('#error_msg')
+        .html('Sorry, '
+            + $('#username').text()
+            + ', access denied!')
+        .show().hide(6000);
 }

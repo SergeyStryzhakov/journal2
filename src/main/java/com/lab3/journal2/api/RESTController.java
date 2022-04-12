@@ -7,13 +7,12 @@ import com.lab3.journal2.services.TeacherService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
+@RequestMapping(value = "/api")
 public class RESTController {
     private final TeacherService teacherService;
     private final StudentService studentService;
@@ -37,7 +36,8 @@ public class RESTController {
      * @param id subject id
      * @return JSON teachers list
      */
-    @PostMapping(value = "/api/teachers/subject")
+
+    @PostMapping(value = "/teachers/subject")
     public ResponseEntity<?> getTeachersBySubjectId(
             @ModelAttribute("subjectId") int id) {
         LOGGER.info("(JSON) Get teachers by subject id: " + id);
@@ -51,33 +51,37 @@ public class RESTController {
      * @param id subject id
      * @return JSON marks list
      */
-    @PostMapping(value = "/api/marks/subject")
+
+    @PostMapping(value = "/marks/subject")
     public ResponseEntity<?> getMarksBySubjectId(
             @ModelAttribute("subjectId") int id) {
         LOGGER.info("(JSON) Get marks by subject id: " + id);
         return ResponseEntity.ok(
                 markService.getMarksBySubjectId(id));
     }
+
     /**
      * Get marks list by teacher id in JSON format
      *
      * @param id teacher id
      * @return JSON marks list
      */
-    @PostMapping(value = "/api/marks/teacher")
+    @Secured({"ROLE_TEACHER", "ROLE_ADMIN"})
+    @PostMapping(value = "/marks/teacher")
     public ResponseEntity<?> getMarksByTeacherId(
             @ModelAttribute("teacherId") int id) {
         LOGGER.info("(JSON) Get marks by teacher id: " + id);
         return ResponseEntity.ok(
                 markService.getMarksByTeacherId(id));
     }
+
     /**
      * Get marks list by date in JSON format
      *
      * @param date Date
      * @return JSON marks list
      */
-    @PostMapping(value = "/api/marks/date")
+    @PostMapping(value = "/marks/date")
     public ResponseEntity<?> getMarksByDate(
             @ModelAttribute("date") String date) {
         LOGGER.info("(JSON) Get marks by date: " + date);
@@ -90,7 +94,8 @@ public class RESTController {
      *
      * @return JSON teachers list
      */
-    @GetMapping(value = "/api/teachers")
+
+    @GetMapping(value = "/teachers")
     public ResponseEntity<?> getAllTeachers() {
         LOGGER.info("(JSON) Get all teachers");
         return ResponseEntity.ok(
@@ -102,7 +107,8 @@ public class RESTController {
      *
      * @return JSON students list
      */
-    @GetMapping(value = "/api/students")
+
+    @GetMapping(value = "/students")
     public ResponseEntity<?> getAllStudents() {
         LOGGER.info("(JSON) Get all students)");
         return ResponseEntity.ok(
@@ -114,7 +120,7 @@ public class RESTController {
      *
      * @return JSON subjects list
      */
-    @GetMapping(value = "/api/subjects")
+    @GetMapping(value = "/subjects")
     public ResponseEntity<?> getAllSubjects() {
         LOGGER.info("(JSON) Get all subjects)");
         return ResponseEntity.ok(
@@ -126,7 +132,7 @@ public class RESTController {
      *
      * @return JSON marks list
      */
-    @GetMapping(value = "/api/marks")
+    @GetMapping(value = "/marks")
     public ResponseEntity<?> getAllMarks() {
         LOGGER.info("(JSON) Get all marks)");
         return ResponseEntity.ok(

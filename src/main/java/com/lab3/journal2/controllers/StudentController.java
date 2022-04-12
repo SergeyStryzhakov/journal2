@@ -6,12 +6,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
+@RequestMapping(value = "/students")
 public class StudentController {
     private final static Logger LOGGER = LoggerFactory.getLogger(StudentController.class);
     private final StudentService studentService;
@@ -27,7 +25,7 @@ public class StudentController {
      * @param model model
      * @return list of all students
      */
-    @GetMapping(value = "/students")
+    @GetMapping()
     public String listStudents(Model model) {
         model.addAttribute("students", studentService.getAllStudents());
         return "students";
@@ -40,7 +38,7 @@ public class StudentController {
      * @param id    student id
      * @return specific student object
      */
-    @GetMapping(value = "/students/{id}")
+    @GetMapping(value = "/{id}")
     public String showStudent(Model model, @PathVariable int id) {
         model.addAttribute("students", studentService.getStudentById(id));
         return "students";
@@ -52,7 +50,7 @@ public class StudentController {
      * @param model model
      * @return html form
      */
-    @GetMapping(value = "/students/new")
+    @GetMapping(value = "/new")
     public String createStudentForm(Model model) {
         Student student = new Student();
         model.addAttribute("student", student);
@@ -65,7 +63,7 @@ public class StudentController {
      * @param student new student
      * @return students.html with list of all students
      */
-    @PostMapping("/students")
+    @PostMapping()
     public String saveStudent(@ModelAttribute("student") Student student) {
         studentService.createStudent(student);
         LOGGER.info("Student is created successfully. " + student.toString() );
@@ -78,7 +76,7 @@ public class StudentController {
      * @param id student id
      * @return students.html with list of all students
      */
-    @GetMapping(value = "/students/remove/{id}")
+    @GetMapping(value = "/remove/{id}")
     public String removeStudent(@PathVariable int id) {
         studentService.removeStudent(id);
         LOGGER.info("Student with id " + id + " is removed successfully.");
@@ -92,7 +90,7 @@ public class StudentController {
      * @param id    student id
      * @return html form for edit
      */
-    @GetMapping(value = "students/edit/{id}")
+    @GetMapping(value = "/edit/{id}")
     public String editStudentForm(Model model, @PathVariable int id) {
         model.addAttribute("student", studentService.getStudentById(id));
         return "edit_student";
@@ -106,7 +104,7 @@ public class StudentController {
      * @param model   model
      * @return students.html with list of all students
      */
-    @PostMapping(value = "/students/{id}")
+    @PostMapping(value = "/{id}")
     public String updateStudent(@PathVariable int id,
                                 @ModelAttribute("student") Student student,
                                 Model model) {

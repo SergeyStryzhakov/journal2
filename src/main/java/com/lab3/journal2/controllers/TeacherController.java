@@ -7,12 +7,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
+@RequestMapping(value = "/teachers")
 public class TeacherController {
     private final static Logger LOGGER = LoggerFactory.getLogger(TeacherController.class);
     private final TeacherService teacherService;
@@ -30,7 +28,7 @@ public class TeacherController {
      * @param model model
      * @return list all teachers
      */
-    @GetMapping(value = "/teachers")
+    @GetMapping()
     public String listTeachers(Model model) {
         model.addAttribute("teachers", teacherService.getAllTeachers());
         return "teachers";
@@ -44,7 +42,7 @@ public class TeacherController {
      * @return teacher entity
      */
 
-    @GetMapping(value = "/teachers/{id}")
+    @GetMapping(value = "/{id}")
     public String showTeacher(Model model, @PathVariable int id) {
         model.addAttribute("teachers", teacherService.getTeacherById(id));
         LOGGER.info("Teacher with id " + id + " is returned successfully.");
@@ -57,7 +55,7 @@ public class TeacherController {
      * @param model model
      * @return html form
      */
-    @GetMapping(value = "/teachers/new")
+    @GetMapping(value = "/new")
     public String createTeacherForm(Model model) {
         Teacher teacher = new Teacher();
         model.addAttribute("teacher", teacher);
@@ -71,7 +69,7 @@ public class TeacherController {
      * @param teacher entity
      * @return list all teachers
      */
-    @PostMapping("/teachers")
+    @PostMapping()
     public String saveTeacher(@ModelAttribute("teacher") Teacher teacher) {
         teacherService.createTeacher(teacher);
         LOGGER.info("Teacher created: " + teacher.toString());
@@ -84,7 +82,7 @@ public class TeacherController {
      * @param id teacher id
      * @return list of all teachers
      */
-    @GetMapping(value = "/teachers/remove/{id}")
+    @GetMapping(value = "/remove/{id}")
     public String removeTeacher(@PathVariable int id) {
         teacherService.removeTeacher(id);
         LOGGER.info("Teacher with id " + id + " is removed successfully.");
@@ -98,7 +96,7 @@ public class TeacherController {
      * @param id    teacher id
      * @return html edit form
      */
-    @GetMapping(value = "teachers/edit/{id}")
+    @GetMapping(value = "/edit/{id}")
     public String editTeacherForm(Model model, @PathVariable int id) {
         model.addAttribute("teacher", teacherService.getTeacherById(id));
         model.addAttribute("subjects", subjectService.getAllSubjects());
@@ -112,7 +110,7 @@ public class TeacherController {
      * @param teacher entity
      * @return list all teachers
      */
-    @PostMapping(value = "/teachers/{id}")
+    @PostMapping(value = "/{id}")
     public String updateTeacher(@PathVariable int id,
                                 @ModelAttribute("teacher") Teacher teacher) {
         Teacher tempTeacher = teacherService.getTeacherById(id);

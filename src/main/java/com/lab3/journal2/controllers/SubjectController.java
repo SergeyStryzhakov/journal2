@@ -8,16 +8,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Controller
+@RequestMapping(value = "/subjects")
 public class SubjectController {
     private final static Logger LOGGER = LoggerFactory.getLogger(SubjectController.class);
     private final SubjectService subjectService;
@@ -35,7 +33,7 @@ public class SubjectController {
      * @param model model
      * @return list all subjects
      */
-    @GetMapping(value = "/subjects")
+    @GetMapping()
     public String listSubject(Model model) {
         List<Subject> subjects = subjectService.getAllSubjects();
         //Map with subject id and same teachers, who can teach this subject
@@ -54,7 +52,7 @@ public class SubjectController {
      * @param model model
      * @return create form html
      */
-    @GetMapping(value = "/subjects/new")
+    @GetMapping(value = "/new")
     public String createSubjectForm(Model model) {
         Subject subject = new Subject();
         model.addAttribute("subject", subject);
@@ -67,7 +65,7 @@ public class SubjectController {
      * @param subject subject entity
      * @return list all subjects
      */
-    @PostMapping("/subjects")
+    @PostMapping()
     public String saveStudent(@ModelAttribute("subject") Subject subject) {
         subjectService.createSubject(subject);
         LOGGER.info("New subject is created: " + subject.toString());
@@ -80,7 +78,7 @@ public class SubjectController {
      * @param id subject id
      * @return list all subjects
      */
-    @GetMapping(value = "/subjects/remove/{id}")
+    @GetMapping(value = "/remove/{id}")
     public String removeSubject(@PathVariable int id) {
         subjectService.removeSubject(id);
         LOGGER.info("Subject with id " + id + " is removed successfully.");
@@ -94,7 +92,7 @@ public class SubjectController {
      * @param id    subject id
      * @return Edit subject form
      */
-    @GetMapping(value = "subjects/edit/{id}")
+    @GetMapping(value = "/edit/{id}")
     public String editSubjectForm(Model model, @PathVariable int id) {
         model.addAttribute("subject", subjectService.getSubjectById(id));
         return "edit_subject";
@@ -107,7 +105,7 @@ public class SubjectController {
      * @param subject entity
      * @return list all subject
      */
-    @PostMapping(value = "/subjects/{id}")
+    @PostMapping(value = "/{id}")
     public String updateSubject(@PathVariable int id,
                                 @ModelAttribute("subject") Subject subject) {
         Subject tempSubject = subjectService.getSubjectById(id);

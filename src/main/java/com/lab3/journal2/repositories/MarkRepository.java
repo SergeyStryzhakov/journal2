@@ -12,6 +12,7 @@ public interface MarkRepository {
     List<Mark> getByTeacherId(int id);
 
     List<Mark> getBySubjectId(int id);
+
     List<Mark> getByDate(String date);
 
     Mark getById(int id);

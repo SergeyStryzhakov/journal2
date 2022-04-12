@@ -2,6 +2,7 @@ drop TABLE LAB3_SSM_MARKS;
 drop TABLE LAB3_SSM_TEACHERS;
 drop TABLE LAB3_SSM_SUBJECTS;
 drop TABLE LAB3_SSM_STUDENTS;
+drop TABLE LAB3_SSM_USERS;
 drop sequence LAB3_SSM_STUDENTS_SEQ;
 drop sequence LAB3_SSM_SUBJECTS_SEQ;
 drop sequence LAB3_SSM_TEACHERS_SEQ;
@@ -61,6 +62,14 @@ create table LAB3_SSM_MARKS
         constraint LAB3_SSM_MARKS_FK2
             references LAB3_SSM_TEACHERS
                 on delete cascade
+);
+create table LAB3_SSM_USERS
+(
+    USERNAME VARCHAR2(50)  not null
+        constraint USERS_PK
+            primary key,
+    PASSWORD VARCHAR2(100) not null,
+    ROLE     VARCHAR2(20)  not null
 );
 create sequence LAB3_SSM_STUDENTS_SEQ
     nocache;

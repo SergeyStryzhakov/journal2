@@ -11,7 +11,7 @@
         <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
             <h1 class="text-center"> Edit mark </h1>
             <div class="card-body">
-                <form th:action="@{/journal/{id} (id=${mark.id})}" th:object="${mark}" method="POST" id="editMarkForm">
+                <form th:action="@{/journal/edit/{id} (id=${mark.id})}" th:object="${mark}" method="POST" id="editMarkForm">
                     <div class="form-group">
                         <label for="student" class="fs-5 fw-bold"> Student </label>
                         <select required th:field="*{student.id}" id="student" class="form-control">

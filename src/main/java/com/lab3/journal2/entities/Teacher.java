@@ -70,7 +70,7 @@ public class Teacher {
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", salary=" + salary +
-                ", subject=" + subject.getTitle() +
+                ", subject=" + subject.getId() +
                 '}';
     }
 }

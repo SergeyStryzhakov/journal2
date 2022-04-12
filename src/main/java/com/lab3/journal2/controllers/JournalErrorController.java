@@ -35,9 +35,10 @@ public class JournalErrorController implements ErrorController {
                 model.addAttribute("exception", message);
                 model.addAttribute("code", statusCode);
                 return "error/error-500";
+            }else if(statusCode == HttpStatus.FORBIDDEN.value()) {
+                return "error/error-403";
             }
         }
-
         return "/error/error";
     }
 }

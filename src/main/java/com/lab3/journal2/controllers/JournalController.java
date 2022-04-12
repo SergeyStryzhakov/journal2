@@ -9,6 +9,7 @@ import com.lab3.journal2.services.SubjectService;
 import com.lab3.journal2.services.TeacherService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.*;
 
 @Controller
+@RequestMapping(value = "/journal")
 public class JournalController {
     private static final Logger LOGGER = LoggerFactory.getLogger(JournalController.class);
     private final StudentService studentService;
@@ -40,7 +42,7 @@ public class JournalController {
      * @param model model
      * @return html page journal.html
      */
-    @GetMapping(value = "/journal")
+    @GetMapping()
     public String showJournal(Model model) {
         List<Student> students = studentService.getAllStudents();
         List<Subject> subjects = subjectService.getAllSubjects();
@@ -58,7 +60,7 @@ public class JournalController {
      * @param id    teacher id
      * @return html page journal.html
      */
-    @GetMapping(value = "/journal/teachers/{id}")
+    @GetMapping(value = "/teachers/{id}")
     public String showJournalByTeacher(Model model, @PathVariable int id) {
         List<Student> students = studentService.getAllStudents();
         List<Subject> subjects = subjectService.getAllSubjects();
@@ -77,7 +79,7 @@ public class JournalController {
      * @param id    student id
      * @return html page marks.html
      */
-    @GetMapping(value = "/journal/students/{id}")
+    @GetMapping(value = "/students/{id}")
     public String showMarksByStudentId(Model model, @PathVariable int id) {
         Student student = studentService.getStudentById(id);
         List<Subject> subjects = subjectService.getAllSubjects();
@@ -114,7 +116,8 @@ public class JournalController {
      * @param value     mark
      * @return reload self page with js
      */
-    @PostMapping(value = "/journal/students/{id}")
+    @Secured("ROLE_TEACHER")
+    @PostMapping(value = "/students/{id}")
     public String createSimpleMark(@PathVariable int id,
                                    @ModelAttribute("subjectId") int subjectId,
                                    @ModelAttribute("teacherId") int teacherId,
@@ -138,7 +141,8 @@ public class JournalController {
      * @param id    student id
      * @return create mark form html
      */
-    @GetMapping(value = {"/journal/new/{id}"})
+    @Secured("ROLE_TEACHER")
+    @GetMapping(value = {"/new/{id}"})
     public String createMarkForm(Model model, @PathVariable int id) {
         Mark mark = new Mark();
         List<Student> studentsList = new ArrayList<>();
@@ -161,7 +165,8 @@ public class JournalController {
      * @param mark mark
      * @return journal.html
      */
-    @PostMapping("/journal/")
+    @Secured("ROLE_TEACHER")
+    @PostMapping()
     public String createMark(@ModelAttribute("mark") Mark mark) {
         markService.createMark(mark);
         LOGGER.info("Mark created: " + mark);
@@ -175,7 +180,8 @@ public class JournalController {
      * @param id    mark id
      * @return edit mark form
      */
-    @GetMapping(value = "/journal/edit/{id}")
+    @Secured("ROLE_TEACHER")
+    @GetMapping(value = "/edit/{id}")
     public String editMarkForm(Model model, @PathVariable int id) {
         model.addAttribute("mark", markService.getMarkById(id));
         LOGGER.info("Edit form is done.");
@@ -189,7 +195,8 @@ public class JournalController {
      * @param mark mark
      * @return journal.html
      */
-    @PostMapping(value = "/journal/{id}")
+    @Secured("ROLE_TEACHER")
+    @PostMapping(value = "/edit/{id}")
     public String editMark(@PathVariable int id,
                            @ModelAttribute("mark") Mark mark) {
         markService.updateMark(mark);
@@ -203,7 +210,8 @@ public class JournalController {
      * @param id mark
      * @return journal.html
      */
-    @GetMapping(value = "/journal/remove/{id}")
+    @Secured("ROLE_TEACHER")
+    @GetMapping(value = "/remove/{id}")
     public String removeMark(@PathVariable int id) {
         markService.deleteMark(id);
         LOGGER.info("Mark with id " + id + " is deleted.");
