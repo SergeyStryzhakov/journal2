@@ -1,0 +1,18 @@
+version: '3'
+services:
+  postgres:
+    image: 'postgres:latest'
+    container_name: 'journal-db'
+    environment:
+      - 'POSTGRES_USER=postgres'
+      - 'POSTGRES_HOST_AUTH_METHOD=trust'
+      - 'POSTGRES_DB=postgres'
+    volumes:
+      - db:/var/lib/postgresql/data
+  app:
+    build: ./
+    container_name: 'journal'
+    ports:
+      - "1234:1234"
+volumes:
+  db:

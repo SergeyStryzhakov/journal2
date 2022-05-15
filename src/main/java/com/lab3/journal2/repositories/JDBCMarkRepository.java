@@ -81,7 +81,7 @@ public class JDBCMarkRepository implements MarkRepository {
                 "m.student_id = s.student_id AND " +
                 "m.teacher_id = t.teacher_id AND " +
                 "m.subject_id = sub.subject_id AND " +
-                "m.CREATED = to_date(?, 'RRRR.MM.DD') ORDER BY s.STUDENT_LNAME";
+                "m.CREATED = to_date(?, 'YYYY.MM.DD') ORDER BY s.STUDENT_LNAME";
         return jdbcTemplate.query(sqlString, new MarkMapper(), date);
     }
 
@@ -103,7 +103,7 @@ public class JDBCMarkRepository implements MarkRepository {
     public void create(Mark mark) {
         jdbcTemplate.update("insert into LAB3_SSM_MARKS(" +
                         "STUDENT_ID, SUBJECT_ID, CREATED, " +
-                        "VALUE, TEACHER_ID) values (?,?,to_date(?, 'RRRR.MM.DD'),?,?)",
+                        "VALUE, TEACHER_ID) values (?,?,to_date(?, 'YYYY.MM.DD'),?,?)",
                 mark.getStudent().getId(),
                 mark.getSubject().getId(),
                 mark.getCreated(),
@@ -115,7 +115,7 @@ public class JDBCMarkRepository implements MarkRepository {
     public int update(Mark mark) {
         return jdbcTemplate.update("update LAB3_SSM_MARKS " +
                         "SET STUDENT_ID = ?, SUBJECT_ID = ?," +
-                        " CREATED = to_date(?, 'RRRR.MM.DD'), VALUE = ?, TEACHER_ID = ? " +
+                        " CREATED = to_date(?, 'YYYY.MM.DD'), VALUE = ?, TEACHER_ID = ? " +
                         "where MARK_ID = ?",
                 mark.getStudent().getId(),
                 mark.getSubject().getId(),

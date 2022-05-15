@@ -1,0 +1,18 @@
+version: '3'
+services:
+  oracle:
+    image: 'wnameless/oracle-xe-11g-r2'
+    container_name: 'journal-db'
+    volumes:
+      - 'oracle-data:/u01/app/oracle/oradata'
+    environment:
+      - 'ORACLE_ALLOW_REMOTE=true'
+      - 'ORACLE_ENABLE_XDB=true'
+      - 'ORACLE_PWD=oracle'
+      - 'ORACLE_SID=XE'
+
+  app:
+    build: ./
+    container_name: 'journal'
+    depends_on:
+      - oracle

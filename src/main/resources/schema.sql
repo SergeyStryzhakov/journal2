@@ -1,122 +1,60 @@
-drop TABLE LAB3_SSM_MARKS;
-drop TABLE LAB3_SSM_TEACHERS;
-drop TABLE LAB3_SSM_SUBJECTS;
-drop TABLE LAB3_SSM_STUDENTS;
-drop TABLE LAB3_SSM_USERS;
-drop sequence LAB3_SSM_STUDENTS_SEQ;
-drop sequence LAB3_SSM_SUBJECTS_SEQ;
-drop sequence LAB3_SSM_TEACHERS_SEQ;
-drop sequence LAB3_SSM_MARKS_SEQ;
-drop trigger LAB3_SSM_STUDENTS_TRIGGER;
-drop trigger LAB3_SSM_SUBJECT_TRIGGER;
-drop trigger LAB3_SSM_TEACHERS_TRIGGER;
-drop trigger LAB3_SSM_MARKS_TRIGGER;
-
+drop table if exists lab3_ssm_marks cascade;
+drop table if exists lab3_ssm_students cascade;
+drop table if exists lab3_ssm_teachers cascade;
+drop table if exists lab3_ssm_subjects cascade;
+drop table if exists lab3_ssm_users cascade;
 create table LAB3_SSM_STUDENTS
 (
-    STUDENT_ID    NUMBER(10)   not null
-        constraint LAB3_SSM_STUDENTS_PK
-            primary key,
-    STUDENT_FNAME VARCHAR2(50) not null,
-    STUDENT_LNAME VARCHAR2(50) not null,
-    AGE           NUMBER(2),
-    GROUPNAME     VARCHAR2(20) not null
+    STUDENT_ID    SERIAL primary key,
+    STUDENT_FNAME varchar(50) not null,
+    STUDENT_LNAME varchar(50) not null,
+    AGE           int,
+    GROUPNAME     varchar(20) not null
 );
 create table LAB3_SSM_SUBJECTS
 (
-    TITLE      VARCHAR2(40) not null,
-    HOURS      NUMBER(3)    not null,
-    SUBJECT_ID NUMBER(3)    not null
-        constraint SUBJECTS_PK
-            primary key
+    SUBJECT_ID SERIAL primary key,
+    TITLE      varchar(40) not null,
+    HOURS      int         not null
+
 );
 create table LAB3_SSM_TEACHERS
 (
-    TEACHER_ID    NUMBER(4)     not null
-        constraint LAB3_SSM_TEACHERS_PK
-            primary key,
-    TEACHER_FNAME VARCHAR2(100) not null,
-    TEACHER_LNAME VARCHAR2(20)  not null,
-    SALARY        NUMBER        not null,
-    SUBJECT       NUMBER
-        constraint LAB3_SSM_TEACHERS_FK1
-            references LAB3_SSM_SUBJECTS
-                on delete cascade
+    TEACHER_ID    serial primary key,
+    TEACHER_FNAME varchar(50) not null,
+    TEACHER_LNAME varchar(50) not null,
+    SALARY        int         not null,
+    SUBJECT       int         not null,
+    constraint fk_teachers_subject
+        foreign key (SUBJECT)
+            references LAB3_SSM_SUBJECTS (subject_id)
+            on delete cascade
 );
 create table LAB3_SSM_MARKS
 (
-    MARK_ID    NUMBER(3) not null
-        constraint LAB3_SSM_MARKS_PK
-            primary key,
-    STUDENT_ID NUMBER(3) not null
-        constraint LAB3_SSM_MARKS_FK3
-            references LAB3_SSM_STUDENTS
-                on delete cascade,
-    SUBJECT_ID NUMBER(3) not null
-        constraint LAB3_SSM_MARKS_FK1
-            references LAB3_SSM_SUBJECTS
-                on delete cascade,
-    CREATED    DATE      not null,
-    VALUE      NUMBER,
-    TEACHER_ID NUMBER(3) not null
-        constraint LAB3_SSM_MARKS_FK2
-            references LAB3_SSM_TEACHERS
-                on delete cascade
+    MARK_ID    serial primary key,
+    STUDENT_ID int  not null,
+    SUBJECT_ID int  not null,
+    CREATED    DATE not null default CURRENT_DATE,
+    VALUE      int,
+    TEACHER_ID int  not null,
+    constraint fk_marks_student
+        foreign key (STUDENT_ID)
+            references LAB3_SSM_STUDENTS (student_id)
+            on delete cascade,
+    constraint fk_marks_subject
+        foreign key (SUBJECT_ID)
+            references LAB3_SSM_SUBJECTS (subject_id)
+            on delete cascade,
+    constraint fk_marks_teachers
+        foreign key (TEACHER_ID)
+            references LAB3_SSM_TEACHERS (teacher_id)
+            on delete cascade
 );
 create table LAB3_SSM_USERS
 (
-    USERNAME VARCHAR2(50)  not null
-        constraint USERS_PK
-            primary key,
-    PASSWORD VARCHAR2(100) not null,
-    ROLE     VARCHAR2(20)  not null
+    USERNAME varchar(50)  not null
+        primary key,
+    PASSWORD varchar(100) not null,
+    ROLE     varchar(20)  not null
 );
-create sequence LAB3_SSM_STUDENTS_SEQ
-    nocache;
-create sequence LAB3_SSM_SUBJECTS_SEQ
-    nocache;
-create sequence LAB3_SSM_TEACHERS_SEQ
-    nocache;
-create sequence LAB3_SSM_MARKS_SEQ
-    nocache;
-create trigger LAB3_SSM_STUDENTS_TRIGGER
-    before insert
-    on LAB3_SSM_STUDENTS
-    for each row
-BEGIN
-    SELECT LAB3_SSM_STUDENTS_SEQ.nextval
-    INTO :new.STUDENT_ID
-    FROM dual;
-END;
-/
-create trigger LAB3_SSM_SUBJECT_TRIGGER
-    before insert
-    on LAB3_SSM_SUBJECTS
-    for each row
-BEGIN
-    SELECT LAB3_SSM_SUBJECTS_SEQ.nextval
-    INTO :new.SUBJECT_ID
-    FROM dual;
-END;
-/
-create trigger LAB3_SSM_TEACHERS_TRIGGER
-    before insert
-    on LAB3_SSM_TEACHERS
-    for each row
-BEGIN
-    SELECT LAB3_SSM_TEACHERS_SEQ.nextval
-    INTO :new.TEACHER_ID
-    FROM dual;
-END;
-/
-create trigger LAB3_SSM_MARKS_TRIGGER
-    before insert
-    on LAB3_SSM_MARKS
-    for each row
-BEGIN
-    SELECT LAB3_SSM_MARKS_SEQ.nextval
-    INTO :new.MARK_ID
-    FROM dual;
-END;
-
-
