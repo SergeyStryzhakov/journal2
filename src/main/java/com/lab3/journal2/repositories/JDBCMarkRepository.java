@@ -31,6 +31,7 @@ public class JDBCMarkRepository implements MarkRepository {
 
     @Override
     public List<Mark> getByStudentId(int id) {
+
         String sqlString = "SELECT * from " +
                 "lab3_ssm_marks m, " +
                 "lab3_ssm_students s, " +

@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 /**
  * Add some error pages for 404, 500 status codes
  */
-@Controller
+/*@Controller
 public class JournalErrorController implements ErrorController {
 
     @RequestMapping(value = "/error")
@@ -42,3 +42,4 @@ public class JournalErrorController implements ErrorController {
         return "/error/error";
     }
 }
+*/

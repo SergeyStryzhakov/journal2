@@ -89,6 +89,21 @@ public class RESTController {
                 markService.getMarksByDate(date));
     }
 
+    @PostMapping(value = "/marks/student")
+    public ResponseEntity<?> getMarksByStudentId(
+            @ModelAttribute("studentId") int id) {
+        LOGGER.info("(JSON) Get marks by student id: " + id);
+        return ResponseEntity.ok(
+                markService.getMarksByStudentId(id));
+    }
+
+    @GetMapping(value = "/marks/student/{id}")
+    public ResponseEntity<?> getMarksByStudentIdGet(@PathVariable int id) {
+        LOGGER.info("(JSON) Get marks by student id: " + id);
+        return ResponseEntity.ok(
+                markService.getMarksByStudentId(id));
+    }
+
     /**
      * Get teachers list in JSON format
      *
@@ -137,5 +152,11 @@ public class RESTController {
         LOGGER.info("(JSON) Get all marks)");
         return ResponseEntity.ok(
                 markService.getAllMarks());
+    }
+    @GetMapping(value = "/students/{id}")
+    public ResponseEntity<?> getStudentById(@PathVariable int id) {
+        LOGGER.info("(JSON) Get student by id: )" + id);
+        return ResponseEntity.ok(
+                studentService.getStudentById(id));
     }
 }
